@@ -1,4 +1,4 @@
-## Lab Manager of PRIV 
+## Laboratory management tools
 
 
 ### Technology stack
