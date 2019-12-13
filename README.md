@@ -13,11 +13,11 @@
 	 - cookie
 - Server
 	- python3
-	- Flask
-	- Monogo
-	- Redis
-	- paramiko
-	- psutil
+	- [Flask](https://palletsprojects.com/p/flask/)
+	- [Monogo](https://www.mongodb.com/)
+	- [Redis](https://redis.io/)
+	- [paramiko](https://github.com/paramiko/paramiko)
+	- [psutil](https://github.com/giampaolo/psutil)
 	
 
 ### Run Sample
