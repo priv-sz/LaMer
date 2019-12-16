@@ -14,14 +14,11 @@ from pymongo import MongoClient
 dir_path = os.getcwd()
 config_path = dir_path+'/config/config.txt'
 monit_path = dir_path + '/monitor_server.py'
-SSH_FILE_PATH = "/home/user/Documents/monitor_perf.py"
-local_file = "/home/user/Program/ws/monitor_web/monitor_perf.py"
-file_local_file = "/home/user/Program/ws/monitor_web/requirements.txt"
-remote_file = "/home/user/Documents/monitor_perf.py"
-remote_re_file = "/home/user/Documents/requirements.txt"
-host = "192.168.88.91"
-user = "user"
-pwd = "priv123"
+local_file = dir_path + '/remote_files/monitor_perf.py'
+file_local_file = dir_path + '/remote_files/requirements.txt'
+remote_file = "/home/user/Documents/monitor_perf_cc.py"
+remote_re_file = "/home/user/Documents/requirement.txt"
+
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -85,7 +82,7 @@ def add_data(host,user,pwd,time,moni_data,moni_script):
 
         client.connect(host, 22, username=user, password=pwd, timeout=3)
         _, stdout1, stderr1 = client.exec_command(
-            'echo priv123 | sudo -S pip3 install -r /home/user/Documents/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple')
+            'echo priv123 | sudo -S pip3 install -r {} -i https://pypi.tuna.tsinghua.edu.cn/simple'.format(remote_re_file))
         stdout1.read().decode('utf-8')
 
         cmd = 'python3 {}'.format(remote_file)

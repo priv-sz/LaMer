@@ -44,13 +44,14 @@ class Student(Document):
         'collection':'moni_student'
     }
 
-    username = StringField()
+    name = StringField()
     gender = StringField()
     server = ListField()
     img_addr = StringField()
     github = StringField()
     grade = IntField()
     phone = IntField()
+    stuid = IntField()
 
 
 # 记录增删改查的记录

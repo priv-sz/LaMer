@@ -3,5 +3,5 @@
 {'pwd': 'priv123', 'user': 'user', 'name': '服务器 40', 'host': '192.168.88.40', 'interval': 1800}
 {'interval': 1800, 'pwd': 'priv123', 'host': '192.168.88.221', 'name': '服务器 221', 'user': 'user'}
 {'name': '服务器 91', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.91'}
+{'pwd': 'priv123', 'name': '服务器 70', 'host': '192.168.88.70', 'interval': 1800, 'user': 'user'}
 {'pwd': 'priv123', 'name': '服务器 20', 'host': '192.168.88.20', 'interval': 1800, 'user': 'user'}
-{'host': '192.168.88.70', 'interval': 1800, 'user': 'user', 'name': '服务器 70', 'pwd': 'priv123'}

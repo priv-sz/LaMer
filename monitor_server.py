@@ -10,6 +10,7 @@ import datetime
 import sys
 import threading
 import multiprocessing
+from utils import *
 from pymongo import MongoClient
 
 # from config import *
@@ -17,10 +18,10 @@ dir_path = os.getcwd()
 config_path = dir_path+'/config/config.txt'
 
 conn = MongoClient('127.0.0.1', 27017)
-db = conn.monitor
+db = conn.monitor_copy
 moni_data = db.moni_data
 moni_script = db.moni_script
-remote_file = "/home/user/Documents/monitor_perf.py"
+
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
