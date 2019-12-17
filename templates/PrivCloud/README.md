@@ -1,1 +1,1 @@
-## Laboratory management tools web page
+## Priv-Admin 管理模板
