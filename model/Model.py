@@ -5,11 +5,10 @@ class Data(Document):
     meta = {
         'collection':'moni_data'
     }
-    gpu_model = DictField()
     diskUsage = IntField()
     # gpu_version = StringField()
     cpuUsagePercent = IntField()
-    gpu_info = DictField()
+    gpu_info = ListField()
     net_num = IntField()
     cpu_model = StringField()
     TotalMemory = IntField()
@@ -45,13 +44,15 @@ class Student(Document):
     }
 
     name = StringField()
-    gender = StringField()
+    # 0男1女
+    gender = IntField()
     server = ListField()
     img_addr = StringField()
     github = StringField()
     grade = IntField()
     phone = IntField()
     stuid = IntField()
+    cardid = IntField()
 
 
 # 记录增删改查的记录
@@ -74,3 +75,25 @@ class Person(Document):
     name = StringField()
     password = StringField()
     auth = IntField(default=1)
+
+
+# 记录硬件信息 测试
+class DataC(Document):
+    meta = {
+        'collection':'moni_ceshi'
+    }
+    diskUsage = IntField()
+    # gpu_version = StringField()
+    cpuUsagePercent = IntField()
+    gpu_info = ListField()
+    net_num = IntField()
+    cpu_model = StringField()
+    TotalMemory = IntField()
+    cpu_num = IntField()
+    # pid_mess = DictField()
+    # gpu_num = IntField()
+    net_ip = StringField()
+    timestamp = IntField()
+    UsageMemory = IntField()
+    # gpu_temperat = DictField()
+    diskTotal = IntField()

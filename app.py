@@ -17,6 +17,7 @@ from flask import request
 from model.Model import *
 from flask_cors import *
 from utils import *
+import traceback
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # BASE_DIR ='/media/DiskData/TrainServer'
@@ -27,8 +28,9 @@ CORS(app, supports_credentials=True)
 app.debug = False
 app.config['SECRET_KEY'] = 'wiwide_lma'
 
-mongoengine.connect(db='monitor_copy', host='127.0.0.1:27017')
-conn = MongoClient('127.0.0.1', 27017)
+mongoengine.connect(db='monitor_copy', host='192.168.88.91:27017')
+conn = MongoClient('192.168.88.91', 27017)
+# db = conn.monitor
 db = conn.monitor_copy
 moni_data = db.moni_data
 moni_script = db.moni_script
@@ -98,6 +100,7 @@ def tem_sudent(res):
     dics['phone'] = res.phone
     dics['grade'] = res.grade
     dics['stuid'] = res.stuid
+    dics['cardid'] = res.cardid
     return dics
 
 # 平台登录
@@ -148,6 +151,7 @@ def register():
 @app.route('/add_server',methods=['POST'])
 def add_server():
     data = request.json
+    print(data)
     if data:
         # server_dic = {}
         # server_dic['name'] = data['name']
@@ -199,7 +203,10 @@ def add_server():
                 # else:
                 #     return jsonify(error_code=1,status=400,err_msg='system error')
         except Exception as e:
+            print('***********')
             print(e)
+            traceback.print_exc()
+            print('***********')
             return jsonify(error_code=1,status=400, err_msg=e)
     else:
         return jsonify(error_code=1,status=400,err_msg='json error')
@@ -360,7 +367,7 @@ def ip_find(conf_obj,ip):
             time_interval = dic_ob['interval']
             return name,user,pwd,time_interval
 
-def select_con(s_time,Yestarday,ip,list_attr):
+def select_con_cc(s_time,Yestarday,ip,list_attr):
     data_query = Data._get_collection().aggregate([
         {"$match": {"timestamp": {"$lte": s_time, "$gte": Yestarday}, "net_ip": ip}},
         {"$sort": {"timestamp": -1}},
@@ -396,28 +403,136 @@ def select_con(s_time,Yestarday,ip,list_attr):
             for i in list_adr:
                 gpu_use = i['fan']
                 script_query = Script._get_collection().aggregate([
-                {"$match": {"timestamp": {"$lte": s_time, "$gte": Yestarday}, "net_ip": ip,"gpu_use":gpu_use}},
-                {"$sort": {"timestamp": -1}},
-                {"$group": {"_id": "$gpu_use",
-                            "gpu_mem": {"$avg": "$gpu_mem"}
-                            }},
+                    {"$match": {"timestamp": {"$lte": s_time, "$gte": Yestarday}, "net_ip": ip, "gpu_use": gpu_use}},
+                    # {"$sort": {"timestamp": -1}},
+                    {"$group": {"_id": "$gpu_use",
+                                "gpu_mem": {"$avg": "$gpu_mem"}
+                                }},
                 ]
                 )
                 script_query = list(script_query)
                 for j in i['script']:
-                    if j['gpu_use'] == i:
+                    if j['gpu_use'] == gpu_use:
                         j['gpu_mem'] = int(script_query[0]['gpu_mem'])
 
-                list_attr.append(content_dic)
+            list_attr.append(content_dic)
         else:
             list_attr.append(content_dic)
+    # else:
+    #     dicc = {}
+    #     list_attr.append(dicc)
+    return list_attr
+
+def select_con(s_time,Yestarday,ip,list_attr):
+    data_query = Data._get_collection().aggregate([
+        {"$match": {"timestamp": {"$lte": s_time, "$gte": Yestarday}, "net_ip": ip}},
+        {"$sort": {"timestamp": -1}},
+        {'$unwind': '$gpu_info'},
+        {"$group": {"_id": "$gpu_info.fan",
+                    "gpu":{"$avg":"$gpu_info.usedMemry"},
+                    "temp":{"$avg":"$gpu_info.temp"},
+                    "percent":{"$avg":"$gpu_info.percent"}
+                    }},
+    ]
+    )
+    aggre_obj = list(data_query)
+
+    if aggre_obj:
+        # print(aggre_obj)
+        first_data = Data.objects(timestamp__lte=s_time,timestamp__gte=Yestarday,net_ip=ip).order_by("-timestamp").first()
+        if first_data:
+            dics = tem_data(first_data)
+            gpu_list = dics['gpu_info']
+            for i in gpu_list:
+                for diss in aggre_obj:
+                    if i['fan'] == diss['_id']:
+                        i['usedMemry'] = int(diss['gpu'])
+                        i['percent'] = round(diss['percent'],2)
+                        i['temp'] = int(diss['temp'])
+
+            list_attr.append(dics)
     else:
-        dicc = {}
+        data = Data.objects(net_ip=ip).order_by('-timestamp').first()
+        dicc = tem_data(data)
+        dicc['diskUsage'] = 0
+        dicc['UsageMemory'] = 0
+        dicc['timestamp'] = Yestarday
+        gpu_info = dicc['gpu_info']
+        for gpu_dic in gpu_info:
+            gpu_dic['gpu_mem'] = 0
+            gpu_dic['usedMemry'] = 0
+            gpu_dic['percent'] = 0
+            gpu_dic['temp'] = 0
+            gpu_dic['script'] = []
         list_attr.append(dicc)
+    return list_attr
 
 # 查询一周数据
 @app.route('/week_data',methods=['POST'])
 def week_data():
+    data = request.json
+    if data:
+        start_time = int(data['start_time'])
+        end_time = int(data['end_time'])
+        ip_list = data['ip_list']
+        # end = datetime.datetime.fromtimestamp(end_time)
+        # time_diffe = (end - start).days
+        with open(config_path, 'r') as conf:
+            txt_file = conf.readlines()
+        list_all = []
+        for ip in ip_list:
+            list_attr = []
+            s_time = end_time
+
+            for i in range(7):
+                if i == 0:
+                    timeArray = time.localtime(s_time)
+                    otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+                    # print(type(otherStyleTime))
+                    # 获取当天0点时间+1天
+                    startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+                    zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
+                                                            seconds=startTime2.second,
+                                                            microseconds=startTime2.microsecond)
+                    destarr = zeroToday.strftime("%Y-%m-%d %H:%M:%S")
+                    timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
+                    Yestarday = int(time.mktime(timeArray))
+                    list_attr = select_con(s_time,Yestarday,ip,list_attr)
+
+                    s_time = int(time.mktime(timeArray))
+
+                else:
+                    timeArray = time.localtime(s_time)
+                    otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+                    # print(type(otherStyleTime))
+                    # 获取当天0点时间+1天
+                    startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+                    zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
+                                                                seconds=startTime2.second,
+                                                                microseconds=startTime2.microsecond)
+                    destarr = (zeroToday + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
+                    timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
+                    Yestarday = int(time.mktime(timeArray))
+                    list_attr = select_con(s_time,Yestarday,ip,list_attr)
+
+                    s_time = int(time.mktime(timeArray))
+            name,user,pwd,time_interval = ip_find(txt_file,ip)
+            list_attr.reverse()
+            dic_one = {}
+            dic_one['name'] = name
+            dic_one['user'] = user
+            dic_one['pwd'] = pwd
+            dic_one['interval'] = time_interval
+            dic_one['host'] = ip
+            dic_one['data_info'] = list_attr
+            list_all.append(dic_one)
+        return jsonify(error_code=0, status=200, err_msg=list_all)
+    else:
+        return jsonify(error_code=1, status=400, err_msg='json error')
+
+# 查询一周数据
+@app.route('/week_data_cc',methods=['POST'])
+def week_data_cc():
     data = request.json
     if data:
         start_time = int(data['start_time'])
@@ -445,7 +560,7 @@ def week_data():
                     destarr = zeroToday.strftime("%Y-%m-%d %H:%M:%S")
                     timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
                     Yestarday = int(time.mktime(timeArray))
-                    select_con(s_time,Yestarday,ip,list_attr)
+                    list_attr = select_con(s_time,Yestarday,ip,list_attr)
 
                     s_time = int(time.mktime(timeArray))
 
@@ -461,9 +576,10 @@ def week_data():
                     destarr = (zeroToday + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
                     timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
                     Yestarday = int(time.mktime(timeArray))
-                    select_con(s_time,Yestarday,ip,list_attr)
+                    list_attr = select_con(s_time,Yestarday,ip,list_attr)
 
                     s_time = int(time.mktime(timeArray))
+                    
             name,user,pwd,time_interval = ip_find(txt_file,ip)
             dic_one = {}
             dic_one['name'] = name
@@ -521,6 +637,41 @@ def all_server():
         print(e)
         return jsonify(error_code=1,status=400,err_msg=e)
 
+
+# TODO 通过server和server name查学生信息
+@app.route('/server_stu',methods=['POST'])
+def server_to_stu():
+    data = request.json
+    if data:
+        ip_list = data['ip_list']
+        total_list = []
+        try:
+            for ip_dic in ip_list:
+                if 'host' not in ip_dic or 'name' not in ip_dic:
+                    return jsonify(error_code=1, status=400, err_msg='host name not exist')
+            for ip_dic in ip_list:
+                dics = {}
+                ip = ip_dic['host']
+                name = ip_dic['name']
+                stu_obj = Student._get_collection().find({"server":{"$elemMatch":{"host":ip,"name":name}}})
+                stu_list = list(stu_obj)
+                if stu_list:
+                    for stu_dic in stu_list:
+                        stu_dic.pop('_id')
+                    dics['ip'] = ip
+                    dics['data_info'] = stu_list
+                    total_list.append(dics)
+                else:
+                    dics['ip'] = ip
+                    dics['data_info'] = []
+                    total_list.append(dics)
+            return jsonify(error_code=0, status=200, err_msg=total_list)
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1, status=400, err_msg=e)
+    else:
+        return jsonify(error_code=1, status=400, err_msg='json error')
+
 # 根据时间段筛选数据
 @app.route('/period_time',methods=['POST'])
 def monitor():
@@ -551,8 +702,7 @@ def monitor():
                         destarr = (start + datetime.timedelta(seconds=+time_add)).strftime("%Y-%m-%d %H:%M:%S")
                         timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
                         Yestarday = int(time.mktime(timeArray))
-                        # TODO 这块聚合返回数据有问题
-                        select_con(Yestarday,s_time,ip,list_arr)
+                        list_arr = select_con(Yestarday,s_time,ip,list_arr)
 
                         s_time = int(time.mktime(timeArray))
 
@@ -614,7 +764,7 @@ def fixed_time():
                             to_dic['data_info'] = dics
                             list_attr.append(to_dic)
                     else:
-                        dict = {"ip":ip,"data_info":{}}
+                        dict = {"ip":ip,"data_info":[]}
                         name, user, pwd, time_interval = ip_find(conf_obj, ip)
                         dict['name'] = name
                         dict['user'] = user
@@ -631,31 +781,29 @@ def fixed_time():
     else:
         return jsonify(error_code=1,status=400,err_ms ='json error')
 
-# 查询当前时间到24小时前的数据
-@app.route('/one_day',methods=['POST'])
-def one_day():
+# 查询当前时间到24小时前的数据 原来的one_day
+@app.route('/one_day_cc',methods=['POST'])
+def one_day_cc():
     data = request.json
     if data:
         timestamp = int(data['timestamp'])
         ip_list = data['ip_list']
+        count = data.get('count',12)
         with open(config_path, 'r') as conf:
             conf_obj = conf.readlines()
-        # timeArray = time.localtime(timestamp)
-        # otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
-        # dateArray = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
-        # dateStr = (dateArray + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
-        # timeArray = time.strptime(dateStr, "%Y-%m-%d %H:%M:%S")
-        one_dat_time = int(timestamp-60*60*24)
+        time_sub = 60*60
         try:
             if len(ip_list)>=1:
                 all_list = []
                 for ip in ip_list:
                     to_dic = {}
                     list_arr = []
-                    query_res = Data.objects(net_ip=ip,timestamp__gte=one_dat_time,timestamp__lte=timestamp)
-                    for res in query_res:
-                        dics = tem_data(res)
-                        list_arr.append(dics)
+                    s_time = timestamp
+                    for i in range(count):
+                        Yestarday = s_time - time_sub
+                        list_arr = select_con(s_time,Yestarday,ip,list_arr)
+                        s_time = Yestarday
+
                     # print(list_arr)
                     name, user, pwd, time_interval = ip_find(conf_obj, ip)
                     to_dic['name'] = name
@@ -676,6 +824,57 @@ def one_day():
     else:
         return jsonify(error_code=1,status=400,err_msg='json error')
 
+
+# 查询当前时间到24小时前的数据
+@app.route('/one_day', methods=['POST'])
+def one_day():
+    data = request.json
+    if data:
+        timestamp = int(data['timestamp'])
+        ip_list = data['ip_list']
+        with open(config_path, 'r') as conf:
+            conf_obj = conf.readlines()
+        try:
+            timeArray = time.localtime(timestamp)
+            otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+            now_date = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+            loop_count = now_date.hour
+            time_finish = now_date - datetime.timedelta(hours=loop_count, minutes=now_date.minute,
+                                                                   seconds=now_date.second)
+
+            if len(ip_list) >= 1:
+                all_list = []
+                for ip in ip_list:
+                    to_dic = {}
+                    list_arr = []
+                    for i in range(24):
+                        # 这里倒叙是因为接口不同意 前端做了排序, 这里有冲突
+                        time_gte = time_finish + datetime.timedelta(hours=i)
+                        timestamp_gte = int(time.mktime(time_gte.timetuple()))
+                        timestamp_lte = timestamp_gte + 3600
+                        time_lte = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(timestamp_lte))
+                        list_arr = select_con(timestamp_lte, timestamp_gte, ip, list_arr)
+
+                    # print(list_arr)
+                    name, user, pwd, time_interval = ip_find(conf_obj, ip)
+                    to_dic['name'] = name
+                    to_dic['user'] = user
+                    to_dic['pwd'] = pwd
+                    to_dic['interval'] = time_interval
+                    to_dic['host'] = ip
+                    to_dic['data_info'] = list_arr
+                    all_list.append(to_dic)
+                return jsonify(error_code=0, status=200, err_msg=all_list)
+            else:
+                return jsonify(error_code=1, status=400, err_msg='no ip')
+
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1, status=400, err_msg=e)
+
+    else:
+        return jsonify(error_code=1, status=400, err_msg='json error')
+
 # 给图片命名
 def img_pat():
     uuid_str = uuid.uuid4().hex
@@ -688,7 +887,7 @@ def img_pat():
 # 简单判断是否是base64
 def is_base64_code(s):
     '''Check s is Base64.b64encode'''
-    if not isinstance(s ,str) or not s:
+    if not isinstance(s ,str):
         return False
     if ',' in s:
         s= s.split(',')[1]
@@ -714,6 +913,7 @@ def is_base64_code(s):
 def student_add():
     data = request.json
     timestamp = time.time()
+
     if data:
         with open(config_path, 'r') as conf:
             txt_file = conf.readlines()
@@ -722,78 +922,93 @@ def student_add():
             dicc = eval(dics)
             ip_list.append(dicc['host'])
 
-        if 'name' not in data or 'grade' not in data:
-            return jsonify(error_code=1, status=400, err_msg='name grade is null')
+        if 'name' not in data or 'grade' not in data or 'stuid' not in data:
+            return jsonify(error_code=1, status=400, err_msg='name grade stuid is null')
+        if not ['name'] or not ['grade'] or not ['grade']:
+            return jsonify(error_code=1,status=400, err_msg='{} or {} or {} no value'.format(data['name'],data['grade'],data['stuid']))
+
+
         if 'server' not in data or not data['server']:
-            return jsonify(error_code=1,status=400,err_msg='Unassociated server')
-        if 'github' not in data:
+            data['server'] = []
+        if 'github' not in data or not data['github']:
             data['github'] = ''
-        if 'phone' not in data:
+        if 'phone' not in data or not data['phone']:
             data['phone'] = 0
+        if 'cardid' not in data or not data['cardid']:
+            data['cardid'] = 0
         if 'img_addr' not in data:
-            return jsonify(error_code=1,status=400,err_msg='no img_addr')
+            data['img_addr'] = ''
+        if 'gender' not in data or not data['gender']:
+            data['gender'] = 0
+        if data['gender'] != 0 and data['gender'] !=1:
+            return jsonify(error_code=1,status=400,err_msg='gender send 0 or 1')
 
         try:
+            query_id = Student.objects(stuid=data['stuid'])
+            if query_id:
+                return jsonify(error_code=1,status=400,err_msg='stuid {} is exist'.format(data['stuid']))
+
             query_obj = Student.objects(name=data['name'],grade=data['grade'])
             if query_obj:
-                return jsonify(error_code=1,status=400,err_msg='name is exist')
+                return jsonify(error_code=1,status=400,err_msg='{} {} is exist'.format(data['name'],data['grade']))
             else:
-                for ip_dic in data['server']:
-                    ip = ip_dic['host']
-                    if ip not in ip_list:
-                        return jsonify(error_code=1, status=400, err_msg='{} not exit'.format(ip))
+
                 # 获取学生最新数据
-
                 total_list = []
-                dic_all = {}
-                for ip_dic in data['server']:
-                    # TODO暂未将数据分开
-                    list_attr = []
-                    ip = ip_dic['host']
-                    # script_obj = Script.objects(net_ip=ip,user=data['name'])
-                    # if script_obj:
-                    # 通过ip和name对gpu_use去重 并筛选出每个去重字段的最新数据
-                    scrip_obj = Script._get_collection().aggregate([
-                        {"$match": {"net_ip": ip, "user": data['name']}},
-                        {"$sort": {"timestamp": -1}},
-                        {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
-                        {"$project": {"data": 1}},
-                    ])
-                    script_list = list(scrip_obj)
-                    if script_list:
-                        for scr in script_list:
-                            scri_dic = scr['data']
-                            scri_dic.pop('_id')
-                            list_attr.append(scri_dic)
+                if data['server']:
 
-                    total_list.append(list_attr)
-                img_addr = data['img_addr']
-                img_base64 = is_base64_code(img_addr)
-                if img_base64:
-                    imagedata = base64.b64decode(img_base64)
-                    img_path = img_pat()
-                    with open(img_path,'wb') as f:
-                        f.write(imagedata)
-                    img_addr = '/static/upload/'+img_path.split('/')[-1]
-                else:
-                    return jsonify(error_code=1,status=400,err_msg='base64 coding error')
+                    for ip_dic in data['server']:
+                        # TODO暂未将数据分开
+                        list_attr = []
+                        ip = ip_dic['host']
+                        user = ip_dic['user']
+                        # script_obj = Script.objects(net_ip=ip,user=data['name'])
+                        # if script_obj:
+                        # 通过ip和name对gpu_use去重 并筛选出每个去重字段的最新数据
+                        scrip_obj = Script._get_collection().aggregate([
+                            {"$match": {"net_ip": ip, "user": user}},
+                            {"$sort": {"timestamp": -1}},
+                            {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
+                            {"$project": {"data": 1}},
+                        ])
+                        script_list = list(scrip_obj)
+                        if script_list:
+                            for scr in script_list:
+                                scri_dic = scr['data']
+                                scri_dic.pop('_id')
+                                list_attr.append(scri_dic)
 
-                dic_all['data_info'] = total_list
-                dic_all['name'] = data['name']
-                dic_all['gender'] = data['gender']
-                dic_all['img_addr'] = img_addr
-                dic_all['github'] = data['github']
-                dic_all['grade'] = data['grade']
-                dic_all['phone'] = data['phone']
-                dic_all['server'] = data['server']
-                dic_all['stuid'] = data['stuid']
+                        total_list.append(list_attr)
 
-                post_obj = Student(name=data['name'], gender=data['gender'], server=data['server'], img_addr=img_addr,
-                                   github=data['github'], grade=data['grade'], phone=data['phone'])
+                # img_addr = data['img_addr']
+                if data['img_addr']:
+                    img_base64 = is_base64_code(data['img_addr'])
+                    if img_base64:
+                        imagedata = base64.b64decode(img_base64)
+                        img_path = img_pat()
+                        with open(img_path,'wb') as f:
+                            f.write(imagedata)
+                        data['img_addr'] = '/static/upload/'+img_path.split('/')[-1]
+                    else:
+                        return jsonify(error_code=1,status=400,err_msg='base64 coding error')
+
+                data['data_info'] = total_list
+                # dic_all['name'] = data['name']
+                # dic_all['gender'] = data['gender']
+                data['img_addr'] = data['img_addr']
+                # dic_all['github'] = data['github']
+                # dic_all['grade'] = data['grade']
+                # dic_all['phone'] = data['phone']
+                # dic_all['server'] = data['server']
+                # dic_all['stuid'] = data['stuid']
+                # dic_all['cardid'] = data['cardid']
+
+                post_obj = Student(name=data['name'], gender=data['gender'], server=data['server'], img_addr=data['img_addr'],
+                                   github=data['github'], grade=data['grade'], phone=data['phone'],stuid=data['stuid'],cardid=data['cardid'])
                 post_obj.save()
                 rec_obj = Record(user=data['name'], opera='add', record=data, timestamp=int(timestamp))
                 rec_obj.save()
-                return jsonify(error_code=0, err_msg=dic_all)
+                return jsonify(error_code=0,status=200, err_msg=data)
         except Exception as e:
             print(e)
             return jsonify(error_code=1,status=400,err_msg=e)
@@ -841,7 +1056,7 @@ def student_del():
                     # 表示未删除
                     dicc['status'] = 1
                     list_all.append(dicc)
-            return jsonify(error_code=1,status=400,err_msg=list_all)
+            return jsonify(error_code=0,status=200,err_msg=list_all)
         except Exception as e:
             print(e)
             return jsonify(error_code=1,status=400,err_msg=str(e))
@@ -859,6 +1074,7 @@ def student_edi():
         new_data = data['new_data']
         name = old_data['name']
         grade = old_data['grade']
+        stuid = old_data['stuid']
         with open(config_path, 'r') as conf:
             txt_file = conf.readlines()
         ip_list = []
@@ -867,59 +1083,83 @@ def student_edi():
             ip_list.append(dicc['host'])
         try:
             query_obj = Student.objects(name=name, grade=grade).first()
-
             if query_obj:
                 #
-                dic_all = {}
-                list_attr = []
+
                 # 查询修改的姓名 年级是否存在
-                if not (name == new_data['name'] and grade == new_data['grade']):
+                if not (name == new_data['name'] and grade == new_data['grade'] and stuid==new_data['stuid']):
+                    id_obj = Student.objects(stuid=new_data['stuid'])
+                    if id_obj:
+                        return jsonify(error_code=1,status=400,err_msg='stuid {} is exist'.format(new_data['stuid']))
                     new_obj = Student.objects(name=new_data['name'], grade=new_data['grade'])
                     if new_obj:
                         return jsonify(error_code=1, status=400,
                                        err_msg='{} and {} is exist'.format(new_data['name'], new_data['grade']))
                 # 查看server是否在里面
                 if 'server' in new_data:
-                    for server in new_data['server']:
-                        ip = server['host']
-                        if 'user' and 'pwd' not in server:
-                            server['user'] = 'user'
-                            server['pwd'] = 'priv123'
-                        if 'host' not in server:
-                            return jsonify(error_code=1,status=400,err_msg='host user pwd not exist')
-                        if ip not in ip_list:
-                            return jsonify(error_code=1,status=400,err_msg='{} not exit'.format(ip))
+                    if new_data['server']:
+                        for server in new_data['server']:
+                            ip = server['host']
+                            if 'user' and 'pwd' not in server:
+                                server['user'] = 'user'
+                                server['pwd'] = 'priv123'
+                            if 'host' not in server:
+                                return jsonify(error_code=1,status=400,err_msg='host not exist')
+                            if ip not in ip_list:
+                                return jsonify(error_code=1,status=400,err_msg='{} not exit'.format(ip))
+                    else:
+                        new_data['server'] = []
 
                 if name != new_data['name']:
                     Script.objects(user=name).update(set__user=new_data['name'])
 
-                for key,value in new_data.items():
-                    setattr(query_obj,key,value)
+                for key, value in new_data.items():
+                    if key == 'img_addr':
+                        img_base64 = is_base64_code(value)
+                        if img_base64:
+                            imagedata = base64.b64decode(img_base64)
+                            img_path = img_pat()
+                            with open(img_path, 'wb') as f:
+                                f.write(imagedata)
+                            new_img_path = '/static/upload/' + img_path.split('/')[-1]
+                            setattr(query_obj, key, new_img_path)
+                        else:
+                            print("****")
+                            value = '/{}'.format(value.split('/', 3)[-1])
+                            print(value)
+                            setattr(query_obj,key,value)
+                    else:
+                        setattr(query_obj,key,value)
                 query_obj.save()
+                total_list = []
+                if query_obj['server']:
+                    for server in query_obj['server']:
+                        ip = server['host']
+                        user = server['user']
+                        list_attr = []
+                        scrip_obj = Script._get_collection().aggregate([
+                            {"$match": {"net_ip": ip, "user": user}},
+                            {"$sort": {"timestamp": -1}},
+                            {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
+                            {"$project": {"data": 1}},
+                        ])
+                        script_list = list(scrip_obj)
+                        if script_list:
+                            for scr in script_list:
+                                scri_dic = scr['data']
+                                scri_dic.pop('_id')
+                                list_attr.append(scri_dic)
+                        total_list.append(list_attr)
 
-                for server in query_obj['server']:
-                    ip = server['host']
-                    scrip_obj = Script._get_collection().aggregate([
-                        {"$match": {"net_ip": ip, "user": query_obj['name']}},
-                        {"$sort": {"timestamp": -1}},
-                        {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
-                        {"$project": {"data": 1}},
-                    ])
-                    script_list = list(scrip_obj)
-                    if script_list:
-                        for scr in script_list:
-                            scri_dic = scr['data']
-                            scri_dic.pop('_id')
-                            list_attr.append(scri_dic)
-
-                dic_all['data_info'] = list_attr
-                dic_all['name'] = query_obj['name']
-                dic_all['gender'] = query_obj['gender']
-                dic_all['img_addr'] = query_obj['img_addr']
-                dic_all['github'] = query_obj['github']
-                dic_all['grade'] = query_obj['grade']
-                dic_all['phone'] = query_obj['phone']
-                dic_all['server'] = query_obj['server']
+                dic_all = tem_sudent(query_obj)
+                dic_all['data_info'] = total_list
+                # dic_all['name'] = query_obj['name']
+                # dic_all['gender'] = query_obj['gender']
+                # dic_all['img_addr'] = query_obj['img_addr']
+                # dic_all['github'] = query_obj['github']
+                # dic_all['grade'] = query_obj['grade']
+                # dic_all['phone'] = query_obj['phone']
+                # dic_all['server'] = query_obj['server']
 
                 rec_obj = Record(user=name, opera='upd', record=data, timestamp=int(timestamp))
                 rec_obj.save()
@@ -958,9 +1198,10 @@ def student_sel():
                 for ip_dic in server:
                     data_list = []
                     ip = ip_dic['host']
+                    user = ip_dic['user']
                     # query_scipt = Script.objects(user=name,net_ip=ip).filter(timestamp__gte=one_dat_time,timestamp__lte=timestamp).order_by("-timestamp").limit(1)
                     scrip_obj = Script._get_collection().aggregate([
-                        {"$match": {"net_ip": ip, "user": name}},
+                        {"$match": {"net_ip": ip, "user": user,"timestamp": {"$lte": timestamp, "$gte": one_dat_time}}},
                         {"$sort": {"timestamp": -1}},
                         {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
                         {"$project": {"data": 1}},
@@ -971,9 +1212,6 @@ def student_sel():
                             scri_dic = scr['data']
                             scri_dic.pop('_id')
                             data_list.append(scri_dic)
-                    else:
-                        dicc = {}
-                        data_list.append(dicc)
                     total_list.append(data_list)
                 query_obj['data_info'] = total_list
                 list_arr.append(query_obj)
@@ -986,9 +1224,231 @@ def student_sel():
         return jsonify(error_code=1,status=400,err_msg='no data')
 
 
+def stu_value_0(ip,user,data_list,s_time,Yestarday):
+    scrip_obj = Script._get_collection().aggregate([
+        {"$match": {"net_ip": ip, "user": user}},
+        {"$group": {"_id": "$gpu_use"}},
+        {"$group": {"_id": 1, "count": {"$sum": 1}}},
+    ])
+    scrip_obj = list(scrip_obj)
+    if scrip_obj:
+        num = scrip_obj[0]['count']
+        for nums in range(num):
+            dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                    'start_time': '', 'duration': '', 'gpu_pid': 0}
+            dicx['gpu_use'] = nums
+            data_list.append(dicx)
+    else:
+        dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                'start_time': '', 'duration': '', 'gpu_pid': 0, 'gpu_use': 0}
+        data_list.append(dicx)
+
+    return data_list
+
+
 # 所有学生查询
-@app.route('/stu_all',methods=['POST'])
-def student_all():
+@app.route('/stu_all', methods=['POST'])
+def stu_all():
+    count = request.json.get('count', 12)
+    try:
+
+        timestamp = int(time.time())
+        time_add = 60 * 60
+        query_set = Student.objects.all()
+        if query_set:
+            try:
+                list_arr = []
+                for stu in query_set:
+
+                    query_obj = tem_sudent(stu)
+                    server = stu.server
+                    # 从小到大
+                    total_list = []
+                    for ip_dic in server:
+                        data_list = []
+                        ip = ip_dic['host']
+                        user = ip_dic['user']
+                        s_time = timestamp
+                        for i in range(count):
+                            Yestarday = s_time - time_add
+                            select_scrip(s_time,Yestarday,data_list,user,ip)
+                            s_time = s_time - time_add
+
+                        total_list.append(data_list)
+                    query_obj['data_info'] = total_list
+                    list_arr.append(query_obj)
+                return jsonify(error_code=0, status=200, err_msg=list_arr)
+            except Exception as e:
+                print(e)
+                return jsonify(error_code=1, status=400, err_msg=e)
+        else:
+            return jsonify(error_code=1, status=400, err_msg='no data')
+    except Exception as e:
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+# 所有学生查询 原来的stu_all
+@app.route('/stu_all_kk', methods=['POST'])
+def student_all_kk():
+    timestamp = int(time.time())
+    # timeArray = time.localtime(timestamp)
+    one_dat_time = timestamp - 60 * 60 * 12
+    # otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+    # dateArray = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+    # dateStr = (dateArray + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
+    # timeArray = time.strptime(dateStr, "%Y-%m-%d %H:%M:%S")
+    time_add = 60*60
+    count = 12
+    query_set = Student.objects.all()
+    if query_set:
+        try:
+            list_arr = []
+            for stu in query_set:
+
+                query_obj = tem_sudent(stu)
+                server = stu.server
+                # 从小到大
+                total_list = []
+                for ip_dic in server:
+                    data_list = []
+                    ip = ip_dic['host']
+                    user = ip_dic['user']
+                    s_time = timestamp
+                    for i in range(count):
+                        Yestarday = s_time - time_add
+                        aggre_obj = Script._get_collection().aggregate([
+                            {"$match": {"net_ip": ip, "user": user,
+                                        "timestamp": {"$lte": s_time, "$gte": Yestarday}}},
+                            {"$sort": {"timestamp": -1}},
+                            {"$group": {"_id": {"gpu_use": "$gpu_use"}, "data": {"$first": "$$ROOT"}}},
+                            {"$project": {"data": 1}},
+                        ])
+                        aggre_obj = list(aggre_obj)
+                        if aggre_obj:
+                            for agg_con in aggre_obj:
+                                scri_dic = agg_con['data']
+                                scri_dic.pop('_id')
+                                data_list.append(scri_dic)
+                        else:
+                            data_list = stu_value_0(ip,user,data_list,'',Yestarday)
+                        s_time = s_time - time_add
+
+                    # query_scipt = Script.objects(user=user, net_ip=ip).filter(timestamp__gte=one_dat_time,
+                    #                                                           timestamp__lte=timestamp)
+                    #
+                    # if query_scipt:
+                    #     # print(query_scipt.count())
+                    #     for scr in query_scipt:
+                    #         scr_dic = tem_script(scr)
+                    #         data_list.append(scr_dic)
+                    # else:
+                    #     dicc = {}
+                    #     data_list.append(dicc)
+                    total_list.append(data_list)
+                query_obj['data_info'] = total_list
+                list_arr.append(query_obj)
+            return jsonify(error_code=0, status=200, err_msg=list_arr)
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1, status=400, err_msg=e)
+    else:
+        return jsonify(error_code=1, status=400, err_msg='no data')
+
+# 所有学生查询
+@app.route('/stu_all_ss', methods=['POST'])
+def stu_all_ss():
+    timestamp = int(time.time())
+    # timeArray = time.localtime(timestamp)
+    one_dat_time = timestamp - 60 * 60 * 8
+    # otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+    # dateArray = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+    # dateStr = (dateArray + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
+    # timeArray = time.strptime(dateStr, "%Y-%m-%d %H:%M:%S")
+    time_add = 60*60
+    count = 8
+    query_set = Student.objects.all()
+    if query_set:
+        try:
+            list_arr = []
+            for stu in query_set:
+
+                query_obj = tem_sudent(stu)
+                server = stu.server
+                # 从小到大
+                total_list = []
+                for ip_dic in server:
+
+                    ip = ip_dic['host']
+                    user = ip_dic['user']
+                    s_time = timestamp
+                    data_list = []
+                    for i in range(count):
+
+                        Yestarday = s_time - time_add
+                        aggre_obj = Script._get_collection().aggregate([
+                            {"$match": {"net_ip": ip, "user": user,
+                                        "timestamp": {"$lte": s_time, "$gt": Yestarday}}},
+                            {"$sort": {"timestamp": -1}},
+                            {"$group": {"_id": {"gpu_use": "$gpu_use"}, "timestamp": {"$first": "$timestamp"},
+                                        "net_ip": {"$first": "$net_ip"},
+                                        "gpu_pid": {"$first": "$gpu_pid"},
+                                        "start_time": {"$first": "$start_time"},
+                                        "config": {"$first": "$config"},
+                                        "duration": {"$first": "$duration"},
+                                        "gpu_use": {"$first": "$gpu_use"},
+                                        "gpu_mem": {"$avg": "$gpu_mem"},
+                                        "user": {"$first": "$user"},
+                            }},
+                            # {"$project": {"data": 1}},
+                        ])
+                        aggre_obj = list(aggre_obj)
+                        if aggre_obj:
+                            for agg_con in aggre_obj:
+                                agg_con.pop("_id")
+                                data_list.append(agg_con)
+                        else:
+                            # 查询有几卡
+                            aggre_obj = Script._get_collection().aggregate([
+                                {"$match": {"net_ip": ip,"user":user}},
+                                {"$group": {"_id": "$gpu_use"}},
+                                {"$group": {"_id": 1, "count": {"$sum": 1}}}
+                            ])
+                            aggre_obj = list(aggre_obj)
+                            if aggre_obj:
+                                for i in range(aggre_obj[0]['count']):
+                                    dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                                            'start_time': '', 'duration': '', 'gpu_pid': 0}
+                                    dicx['gpu_use'] = i
+                                    data_list.append(dicx)
+                            else:
+                                dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                                        'start_time': '', 'duration': '', 'gpu_pid': 0,'gpu_use':0}
+                                data_list.append(dicx)
+                        s_time = s_time - time_add
+
+                    # query_scipt = Script.objects(user=user, net_ip=ip).filter(timestamp__gte=one_dat_time,
+                    #                                                           timestamp__lte=timestamp)
+                    #
+                    # if query_scipt:
+                    #     # print(query_scipt.count())
+                    #     for scr in query_scipt:
+                    #         scr_dic = tem_script(scr)
+                    #         data_list.append(scr_dic)
+                    # else:
+                    #     dicc = {}
+                    #     data_list.append(dicc)
+                    total_list.append(data_list)
+                query_obj['data_info'] = total_list
+                list_arr.append(query_obj)
+            return jsonify(error_code=0, status=200, err_msg=list_arr)
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1, status=400, err_msg=e)
+    else:
+        return jsonify(error_code=1, status=400, err_msg='no data')
+
+# 所有学生查询
+@app.route('/stu_all_error_test',methods=['POST'])
+def stu_all_error_test():
     timestamp = int(time.time())
     # timeArray = time.localtime(timestamp)
     one_dat_time = timestamp-60*60*24
@@ -1010,19 +1470,20 @@ def student_all():
                 for ip_dic in server:
                     data_list = []
                     ip = ip_dic['host']
-                    query_scipt = Script.objects(user=name,net_ip=ip).filter(timestamp__gte=one_dat_time,timestamp__lte=timestamp)
+                    user = ip_dic['user']
+                    query_scipt = Script.objects(user=user,net_ip=ip).filter(timestamp__gte=one_dat_time,timestamp__lte=timestamp)
                     if query_scipt:
                         for scr in query_scipt:
                             scr_dic = tem_script(scr)
                             data_list.append(scr_dic)
-                    else:
-                        dicc = {}
-                        data_list.append(dicc)
+                    # else:
+                    #     dicc = {}
+                    #     data_list.append(dicc)
                     total_list.append(data_list)
                 query_obj['data_info'] = total_list
+             
                 list_arr.append(query_obj)
-
-            return jsonify(error_code=0,status=200,err_msg=list_arr)
+            return jsonify(error_code=0,status=200,err_msg=list_arr, asd=list_arr)
         except Exception as e:
             print(e)
             return jsonify(error_code=1,status=400,err_msg=e)
@@ -1053,8 +1514,63 @@ def select_scrip(s_time,Yestarday,list_attr,user,ip):
             agg_con['user'] = agg_con.pop("_id")
             list_attr.append(agg_con)
     else:
-        dics = {}
-        list_attr.append(dics)
+        # aggre_obj = Script._get_collection().aggregate([
+        #     {"$match": {"net_ip": ip, "user": user}},
+        #     {"$group": {"_id": "$gpu_use"}},
+        #     {"$group": {"_id": 1, "count": {"$sum": 1}}}
+        # ])
+        # aggre_obj = list(aggre_obj)
+        # if aggre_obj:
+        #     for i in range(aggre_obj[0]['count']):
+        #         dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+        #                 'start_time': '', 'duration': '', 'gpu_pid': 0}
+        #         dicx['gpu_use'] = i
+        #         list_attr.append(dicx)
+        # else:
+        #     dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+        #             'start_time': '', 'duration': '', 'gpu_pid': 0, 'gpu_use': 0}
+        #     list_attr.append(dicx)
+        # list_attr = stu_value_0(ip,user,list_attr,'',Yestarday)
+        dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                'start_time': '', 'duration': '', 'gpu_pid': 0, 'gpu_use': 0}
+        list_attr.append(dicx)
+    return list_attr
+
+def select_scrip_cc(s_time,Yestarday,list_attr,user,ip):
+    aggre_obj = Script._get_collection().aggregate([
+        {"$match": {"timestamp": {"$lte": s_time, "$gte": Yestarday}, "user": user,"net_ip":ip}},
+        {"$sort": {"timestamp": -1}},
+        {"$group": {"_id": "$user",
+                    "timestamp": {"$first": "$timestamp"},
+                    "net_ip": {"$first": "$net_ip"},
+                    "gpu_pid": {"$first": "$gpu_pid"},
+                    "start_time": {"$first": "$start_time"},
+                    "config": {"$first": "$config"},
+                    "duration": {"$first": "$duration"},
+                    "gpu_use": {"$first": "$gpu_use"},
+                    "gpu_mem": {"$avg":"$gpu_mem"}
+                    }},
+    ]
+    )
+
+    aggre_obj = list(aggre_obj)
+    if aggre_obj:
+        for agg_con in aggre_obj:
+            agg_con['user'] = agg_con.pop("_id")
+            agg_con['gpu_mem'] = int(agg_con['gpu_mem'])
+            list_attr.append(agg_con)
+    else:
+        data_obj = Data.objects(net_ip=ip).first()
+        if data_obj:
+            dics = tem_data(data_obj)
+            gpu_info = dics['gpu_info']
+            gpu_count = len(gpu_info)
+            # print(s_time,Yestarday)
+            for i in range(gpu_count):
+                dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                        'start_time': '', 'duration': '', 'gpu_pid': 0,'gpu_use':i}
+                list_attr.append(dicx)
+        # print(list_attr)
     return list_attr
 
 # 查询某个时间段的数据
@@ -1084,11 +1600,12 @@ def stu_period_time():
                     list_all = []
                     for ip_dic in server_list:
                         ip = ip_dic['host']
+                        user = ip_dic['user']
                         list_arr = []
                         s_time = start_time
                         for i in range(count):
                             Yestarday = int(s_time) + time_add
-                            list_arr = select_scrip(Yestarday,s_time,list_arr,name,ip)
+                            list_arr = select_scrip(Yestarday,s_time,list_arr,user,ip)
                             s_time = int(s_time)+time_add
 
                         list_all.append(list_arr)
@@ -1102,6 +1619,57 @@ def stu_period_time():
             return jsonify(error_code=1, status=400, err_msg=e)
     else:
         return jsonify(error_code=1, status=400, err_msg='json error')
+
+# 查询7天的数据
+# TODO 对时间进行拆分7天获取7条数据
+@app.route('/stu_week_data_cc',methods=['POST'])
+def stu_week_data_cc():
+    data = request.json
+    if data:
+        start_time = data['start_time']
+        end_time = data['end_time']
+        name_list = data['student']
+
+        list_total = []
+        try:
+            for name_dic in name_list:
+                name = name_dic['name']
+                grade = name_dic['grade']
+                stu_obj = Student.objects(name=name, grade=grade).first()
+                if stu_obj:
+                    stu_dic = tem_sudent(stu_obj)
+                    server_list =stu_dic['server']
+
+                    list_all = []
+
+                    for ip_dic in server_list:
+                        s_time = end_time
+                        list_attr = []
+                        for i in range(7):
+                            ip = ip_dic['host']
+                            user = ip_dic['user']
+                            if i == 0:
+                                # 获取零点时间戳
+                                Yestarday = int(s_time - s_time % 86400 + time.timezone)
+                                list_attr = select_scrip_cc(Yestarday, s_time, list_attr, user,ip)
+                                s_time = int(s_time - s_time % 86400 + time.timezone)
+                            else:
+                                Yestarday = int(s_time)-60*60*24
+                                list_attr = select_scrip_cc(s_time, Yestarday, list_attr, user,ip)
+                                s_time = int(s_time)-60*60*24
+                        list_all.append(list_attr)
+
+                    stu_dic['data_info'] = list_all
+                    list_total.append(stu_dic)
+                else:
+                    return jsonify(error_code=1, status=400, err_msg='{} {} not exist'.format(name,grade))
+            return jsonify(error_code=0, status=200, err_msg=list_total)
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1, status=400, err_msg=e)
+    else:
+        return jsonify(error_code=1,status=400,err_msg='json error')
+
 
 # 查询7天的数据
 # TODO 对时间进行拆分7天获取7条数据
@@ -1125,43 +1693,46 @@ def stu_week_data():
                     server_list =stu_dic['server']
 
                     list_all = []
+
                     for ip_dic in server_list:
-                        list_attr = []
                         s_time = end_time
+                        list_attr = []
                         for i in range(7):
                             ip = ip_dic['host']
-
+                            user = ip_dic['user']
                             if i == 0:
-                                timeArray = time.localtime(s_time)
-                                otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
-                                # print(type(otherStyleTime))
-                                # 获取当天0点时间+1天
-                                startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
-                                zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
-                                                                            seconds=startTime2.second,
-                                                                            microseconds=startTime2.microsecond)
-                                destarr = zeroToday.strftime("%Y-%m-%d %H:%M:%S")
-                                timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
-                                Yestarday = int(time.mktime(timeArray))
-                                list_attr = select_scrip(Yestarday, s_time, list_attr, name,ip)
-                                s_time = int(time.mktime(timeArray))
+                                # timeArray = time.localtime(s_time)
+                                # otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+                                # # print(type(otherStyleTime))
+                                # # 获取当天0点时间+1天
+                                # startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+                                # zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
+                                #                                             seconds=startTime2.second,
+                                #                                             microseconds=startTime2.microsecond)
+                                # destarr = zeroToday.strftime("%Y-%m-%d %H:%M:%S")
+                                # timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
+                                # Yestarday = int(time.mktime(timeArray))
+                                Yestarday = int(s_time - s_time % 86400 + time.timezone)
+                                list_attr = select_scrip(Yestarday, s_time, list_attr, user,ip)
+                                s_time = int(s_time - s_time % 86400 + time.timezone)
+                                # s_time = int(time.mktime(timeArray))
                             else:
-                                timeArray = time.localtime(s_time)
-                                otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
-                                # print(type(otherStyleTime))
-                                # 获取当天0点时间+1天
-                                startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
-                                zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
-                                                                            seconds=startTime2.second,
-                                                                            microseconds=startTime2.microsecond)
-                                destarr = (zeroToday + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
-                                timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
-                                Yestarday = int(time.mktime(timeArray))
-                            # start = datetime.datetime.fromtimestamp(s_time)
-                            # destarr = (start + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
-                            # timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
-                            # Yestarday = int(time.mktime(timeArray))
-                                list_attr = select_scrip(s_time, Yestarday, list_attr, name,ip)
+                                # timeArray = time.localtime(s_time)
+                                # otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+                                # # print(type(otherStyleTime))
+                                # # 获取当天0点时间+1天
+                                # startTime2 = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+                                # zeroToday = startTime2 - datetime.timedelta(hours=startTime2.hour, minutes=startTime2.minute,
+                                #                                             seconds=startTime2.second,
+                                #                                             microseconds=startTime2.microsecond)
+                                # destarr = (zeroToday + datetime.timedelta(days=-1)).strftime("%Y-%m-%d %H:%M:%S")
+                                # timeArray = time.strptime(destarr, "%Y-%m-%d %H:%M:%S")
+                                # Yestarday = int(time.mktime(timeArray))
+                                Yestarday = int(s_time) - 60 * 60 * 24
+                                list_attr = select_scrip(s_time, Yestarday, list_attr, user,ip)
+                                s_time = int(s_time) - 60 * 60 * 24
+                                # s_time = int(time.mktime(timeArray))
+                        list_attr.reverse()
                         list_all.append(list_attr)
 
                     stu_dic['data_info'] = list_all
@@ -1192,14 +1763,16 @@ def stu_fixed_time():
                     stu_dic = tem_sudent(stu_obj)
                     server_list = stu_dic['server']
                     list_all = []
+
                     for ip_dic in server_list:
                         ip = ip_dic['host']
-                        on_a = Script.objects(user=name,net_ip=ip,timestamp__lte=timestamp).order_by("-timestamp").limit(1)
-                        # print(on_a[0].timestamp)
-                        next_a = Script.objects(user=name,net_ip=ip,timestamp__gte=timestamp).order_by("timestamp").limit(1)
-                        # print(next_a[0].timestamp)
-                        dics = {}
+                        user = ip_dic['user']
                         list_attr = []
+                        on_a = Script.objects(user=user,net_ip=ip,timestamp__lte=timestamp).order_by("-timestamp").limit(1)
+                        # print(on_a[0].timestamp)
+                        next_a = Script.objects(user=user,net_ip=ip,timestamp__gte=timestamp).order_by("timestamp").limit(1)
+                        # print(next_a[0].timestamp)
+                        # dics = {}
                         if on_a and next_a:
                             if timestamp - on_a[0].timestamp > timestamp - next_a[0].timestamp:
                                 dics = tem_script(next_a[0])
@@ -1214,7 +1787,9 @@ def stu_fixed_time():
                             dics = tem_script(next_a[0])
                             list_attr.append(dics)
                         else:
-                            list_attr.append(dics)
+                            dicx = {'net_ip': ip, 'gpu_mem': 0, 'user': user, 'timestamp': Yestarday, 'config': '',
+                                    'start_time': '', 'duration': '', 'gpu_pid': 0, 'gpu_use': 0}
+                            list_attr.append(dicx)
 
                         list_all.append(list_attr)
                     stu_dic['data_info'] = list_all
@@ -1235,6 +1810,50 @@ def stu_one_day():
     if data:
         timestamp = data['timestamp']
         name_list = data['student']
+        count = data.get('count',24)
+        # one_dat_time = int(timestamp) - 60*60*24
+        time_sub = 60*60
+        try:
+            total_list = []
+            for name_dic in name_list:
+                name = name_dic['name']
+                grade = name_dic['grade']
+                stu_obj = Student.objects(name=name,grade=grade).first()
+                if stu_obj:
+                    all_list = []
+                    stu_dic = tem_sudent(stu_obj)
+                    server_list = stu_dic['server']
+
+                    for ip_dic in server_list:
+                        # to_dic = {}
+                        list_arr = []
+                        ip = ip_dic['host']
+                        user = ip_dic['user']
+                        s_time = timestamp
+                        for i in range(count):
+                            Yestarday = s_time -time_sub
+                            select_scrip(s_time,Yestarday,list_arr,user,ip)
+                            s_time = Yestarday
+                        all_list.append(list_arr)
+                    stu_dic['data_info'] = all_list
+                    total_list.append(stu_dic)
+                else:
+                    return jsonify(error_code=1, status=400, err_msg='{} or {} not exist'.format(name,grade))
+            return jsonify(error_code=0, status=200, err_msg=total_list)
+
+        except Exception as e:
+            print(e)
+            return jsonify(error_code=1,status=400, err_msg=e)
+    else:
+        return jsonify(error_code=1,status=400,err_msg='json error')
+
+# 根据当前时间查看学生24小时前的数据 原来的stu_one_day
+@app.route('/stu_one_day_cc',methods=['POST'])
+def stu_one_day_cc():
+    data = request.json
+    if data:
+        timestamp = data['timestamp']
+        name_list = data['student']
         one_dat_time = int(timestamp) - 60*60*24
         try:
             total_list = []
@@ -1246,19 +1865,17 @@ def stu_one_day():
                     all_list = []
                     stu_dic = tem_sudent(stu_obj)
                     server_list = stu_dic['server']
+                    list_arr = []
                     for ip_dic in server_list:
-                        to_dic = {}
-                        list_arr = []
+                        # to_dic = {}
                         ip = ip_dic['host']
-                        query_res = Script.objects(user=name,net_ip=ip, timestamp__gte=one_dat_time, timestamp__lte=timestamp)
+                        user = ip_dic['user']
+                        query_res = Script.objects(user=user,net_ip=ip, timestamp__gte=one_dat_time, timestamp__lte=timestamp)
                         if query_res:
-
                             for res in query_res:
                                 dics = tem_script(res)
                                 list_arr.append(dics)
                             # print(list_arr)
-                        else:
-                            list_arr.append(to_dic)
                         all_list.append(list_arr)
                     stu_dic['data_info'] = all_list
                     total_list.append(stu_dic)
@@ -1340,12 +1957,33 @@ def record_del():
 def tess():
     # data = request.json
     # host = data['host']
-    if os.path.isdir(root + ''):
-        print(1)
+    data_query = Data._get_collection().aggregate([
+        {"$match": {"timestamp": {"$lte": 1575189132, "$gte": 1574497932}, "net_ip": "192.168.88.91"}},
+        {"$sort": {"timestamp": -1}},
+        {'$unwind': '$gpu_info'},
+        {"$group": {"_id": "$gpu_info.fan",
+                    "gpu": {"$avg": "$gpu_info.usedMemry"},
+                    "temp": {"$avg": "$gpu_info.temp"},
+                    "percent": {"$avg": "$gpu_info.percent"}
+                    }},
+    ]
+    )
+    aggre_obj = list(data_query)
+    if aggre_obj:
+        pass
     else:
-        os.remove(root+'/ceshi')
-
-    print(root)
+        data = Data.objects(net_ip="192.168.88.91").first()
+        dicc = tem_data(data)
+        dicc['diskUsage'] = 0
+        dicc['UsageMemory'] = 0
+        dicc['timestamp'] = 1575189132
+        gpu_info = dicc['gpu_info']
+        for gpu_dic in gpu_info:
+            gpu_dic['gpu_mem'] = 0
+            gpu_dic['usedMemry'] = 0
+            gpu_dic['percent'] = 0
+            gpu_dic['temp'] = 0
+        print(dicc)
     return jsonify(error_msg = 200)
 
 @app.route('/upload_tmp',methods=['POST'])
@@ -1354,5 +1992,11 @@ def upload_tmp():
     print("22")
     return '200'
 
+# @app.route('/test_mo',methods=['POST'])
+# def test_mo():
+#
+#     print("22")
+#     return '200'
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5010,debug = True)
+    app.run(host='0.0.0.0', port=5010, debug=True)

@@ -9,6 +9,7 @@ import os
 import datetime
 import sys
 from pymongo import MongoClient
+import traceback
 
 # from config import *
 dir_path = os.getcwd()
@@ -16,15 +17,18 @@ config_path = dir_path+'/config/config.txt'
 monit_path = dir_path + '/monitor_server.py'
 local_file = dir_path + '/remote_files/monitor_perf.py'
 file_local_file = dir_path + '/remote_files/requirements.txt'
-remote_file = "/home/user/Documents/monitor_perf_cc.py"
-remote_re_file = "/home/user/Documents/requirement.txt"
+remote_file = "/home/user/Monitor_script/monitor_perf_cc.py"
+remote_re_file = "/home/user/Monitor_script/requirement.txt"
+remote_dir = "/home/user/Monitor_script/"
+maxBytes = 102400
+backupCount = 10
 
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
-def edi_data(host,user,pwd,time,moni_data,moni_script):
+def edi_data(host,user,pwd,time_,moni_data,moni_script):
     try:
-
+        timestamp = int(time.time())
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -38,9 +42,11 @@ def edi_data(host,user,pwd,time,moni_data,moni_script):
                 total_mess = dic_data['total_mess']
                 list_arr.append(total_mess)
                 pid_list = dic_data['pid_mess']
+                total_mess['timestamp'] = timestamp
                 moni_data.insert(total_mess)
                 for pid_ss in pid_list:
                     if pid_ss:
+                        pid_ss['timestamp'] = timestamp
                         moni_script.insert(pid_ss)
 
         if list_arr:
@@ -51,7 +57,7 @@ def edi_data(host,user,pwd,time,moni_data,moni_script):
         print(e)
         return 0
 
-def add_data(host,user,pwd,time,moni_data,moni_script):
+def add_data(host,user,pwd,time_,moni_data,moni_script):
     global client
     try:
         # with open(config_path,'r') as yaml_file:
@@ -64,9 +70,17 @@ def add_data(host,user,pwd,time,moni_data,moni_script):
         #     pwd = dict['pwd']
         #     if ip == host:
 
-
+        timestamp = int(time.time())
         client.connect(host, 22, username=user, password=pwd, timeout=3)
         ssh = paramiko.Transport((host, 22))
+        cmd = 'ls {}'.format(remote_dir)
+        sdtin, stdout, stderr = client.exec_command(cmd)
+        if stdout.readline() != '':
+            print("exist")
+        else:
+            print("not exist")
+            cmd = 'mkdir {}'.format(remote_dir)
+            client.exec_command(cmd)
         ssh.connect(username=user, password=pwd)
         sftp = paramiko.SFTPClient.from_transport(ssh)
         try:
@@ -92,11 +106,17 @@ def add_data(host,user,pwd,time,moni_data,moni_script):
             dic_data = eval(line)
             if dic_data:
                 total_mess = dic_data['total_mess']
+                print(total_mess)
                 list_arr.append(total_mess)
                 pid_list = dic_data['pid_mess']
+                total_mess['timestamp'] = timestamp
                 moni_data.insert(total_mess)
+                print('insert')
+                print('******')
+                print(total_mess)
                 for pid_ss in pid_list:
                     if pid_ss:
+                        pid_ss['timestamp'] = timestamp
                         moni_script.insert(pid_ss)
 
         if list_arr:
@@ -104,7 +124,10 @@ def add_data(host,user,pwd,time,moni_data,moni_script):
         return list_arr
 
     except Exception as e:
+        print('***********')
         print(e)
+        traceback.print_exc()
+        print('***********')
         return 0
 
 def teee():
@@ -115,6 +138,16 @@ def teee():
         host = dicc['host']
         user = dicc['user']
         pwd = dicc['pwd']
+
+        client.connect(host, 22, username=user, password=pwd, timeout=3)
+        cmd = 'ls {}'.format(remote_dir)
+        sdtin, stdout, stderr = client.exec_command(cmd)
+        if stdout.readline() != '':
+            print("exist")
+        else:
+            print("not exist")
+            cmd = 'mkdir {}'.format(remote_dir)
+            client.exec_command(cmd)
         ssh = paramiko.Transport((host, 22))
         ssh.connect(username=user, password=pwd)
         sftp = paramiko.SFTPClient.from_transport(ssh)
