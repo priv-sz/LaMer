@@ -7,3 +7,4 @@
 {'name': '服务器 109', 'host': '192.168.88.109', 'user': 'user', 'interval': 1800, 'pwd': 'priv123'}
 {'name': '服务器 91', 'host': '192.168.88.91', 'user': 'user', 'interval': 1800, 'pwd': 'priv123'}
 {'interval': 1800, 'pwd': 'priv123', 'host': '192.168.88.97', 'name': '服务器 97', 'user': 'user'}
+{'name': '服务器 123', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.123'}
