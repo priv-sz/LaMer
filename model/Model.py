@@ -95,7 +95,7 @@ class Person(Document):
     name = StringField()
     password = StringField()
     auth = IntField(default=1)
-
+    img_addr = StringField()
 
 # 记录硬件信息 测试
 class DataC(Document):

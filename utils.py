@@ -118,7 +118,8 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
                     if pid_ss:
                         pid_ss['timestamp'] = timestamp
                         moni_script.insert(pid_ss)
-
+                        print('$$$$$$')
+                        print(pid_ss)
         if list_arr:
             list_arr[0].pop('_id')
         return list_arr

@@ -12,7 +12,7 @@ import uuid
 import base64
 
 
-from flask import Flask, render_template, jsonify, make_response,current_app
+from flask import Flask, render_template, jsonify, make_response,current_app, redirect
 from flask import request
 from model.Model import *
 from flask_cors import *
@@ -28,13 +28,18 @@ CORS(app, supports_credentials=True)
 app.debug = False
 app.config['SECRET_KEY'] = 'wiwide_lma'
 
-mongoengine.connect(db='monitor_copy', host='192.168.88.91:27017')
-conn = MongoClient('192.168.88.91', 27017)
+# 正式数据库
+# mongoengine.connect(db='monitor', host='192.168.88.191:27017')
+# conn = MongoClient('192.168.88.191', 27017)
+# db = conn.monitor
+
+# TODO 这里通过添加 maxPoolSize 和 connent=False 来处理并发数据库问题 , 应该改写 mongoengine 成 flask_mongoengine
+mongoengine.connect(db='monitor_copy', host='192.168.88.191:27017', maxPoolSize=200, connect=False)
+conn = MongoClient('192.168.88.191', 27017)
 
 # mongoengine.connect(db='monitor_copy', host='140.143.137.79:27108')
 # conn = MongoClient('140.143.137.79', 27108)
 
-# db = conn.monitor
 db = conn.monitor_copy
 moni_data = db.moni_data
 moni_script = db.moni_script
@@ -57,6 +62,12 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads/'  # 保存文件位置
 @app.route('/index')
 def index():
     return render_template("index.html")
+
+
+@app.route('/student_info/static/*')
+def redirectStudentInfo():
+    print(request)
+    return 1
 
 
 # Data实例化
@@ -119,7 +130,7 @@ def login():
         try:
             name = data['name']
             password = data['password']
-            person = Person.objects(name=name,password=password)
+            person = Person.objects(name=name, password=password)
             if len(person):
                 dics = {}
                 dics['name'] = person[0].name
@@ -131,34 +142,93 @@ def login():
             print(e)
             return jsonify(error_code=1, login='fail', err_msg=e)
     else:
-        return jsonify(error_code=1,err_msg='json error')
+        return jsonify(error_code=1, err_msg='json error')
 
 
 # 平台注册信息
-@app.route('/register',methods=['POST'])
+@app.route('/register', methods=['POST'])
 def register():
     data = request.json
     if data:
         try:
             name = data['name']
             pwd = data['password']
-            auth = data['auth']
+            auth = data.get('auth', 1)
             query_obj = Person.objects(name=name)
             if query_obj:
-                return jsonify(error_code=1,status=400,err_msg='username is exist')
+                return jsonify(error_code=1, status=400, err_msg='username is exist')
             else:
-                post_obj = Person(name=name,password=pwd,auth=auth)
+                post_obj = Person(name=name, password=pwd, auth=auth)
                 post_obj.save()
-                return jsonify(error_code=0,status=200,err_msg=200)
+                return jsonify(error_code=0, status=200, err_msg=m2d_exclude(post_obj))
         except Exception as e:
             print(e)
-            return jsonify(error_code=1,status=400,err_msg=e)
+            return jsonify(error_code=1, status=400, err_msg=e)
     else:
-        return jsonify(error_code=1,status=400,err_msg='json error')
+        return jsonify(error_code=1, status=400, err_msg='json error')
+
+
+# 删除注册用户
+@app.route('/del_user', methods=['POST'])
+def del_user():
+    data = request.json
+    try:
+        name = data['name']
+        pwd = data['password']
+        query_obj = Person.objects(name=name, password=pwd).first()
+        if query_obj:
+            query_obj.delete()
+            return jsonify(error_code=0, status=200, err_msg='删除成功')
+        else:
+            return jsonify(error_code=1, status=400, err_msg='用户不存在或密码错误')
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
+# 修改注册用户信息
+@app.route('/update_user', methods=['POST'])
+def update_user():
+    data = request.json
+    personChange = data['new_person']
+    personOrigin = data['old_person']
+    user = Person.objects(name=personOrigin['name'], password=personOrigin['password']).first()
+    try:
+        if user:
+            for key, value in personChange.items():
+                setattr(user, key, value)
+            user.save()
+            return jsonify(error_code=0, status=200, err_msg=m2d_exclude(user))
+        else:
+            return jsonify(error_code=1, status=400, err_msg='用户不存在或密码错误')
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
+# 查询注册用户信息
+@app.route('/query_all_user', methods=['POST'])
+def query_all_user():
+    try:
+        users = Person.objects()
+        users = list(map(lambda x: m2d_exclude(x, '_id', "password"), users))
+        return jsonify(error_code=0, status=200, err_msg=users)
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
 
 
 # 增加服务器信息
-@app.route('/add_server',methods=['POST'])
+@app.route('/add_server', methods=['POST'])
 def add_server():
     data = request.json
     print(data)
@@ -259,7 +329,7 @@ def edi_server():
                         # 返回错误的操作
                         return jsonify(error_code=1, status=400, err_msg='auth fail')
                     else:
-                        with open(config_path, 'w')as f:
+                        with open(config_path, 'w') as f:
                             for value in txt_conf:
                                 dic_obj = eval(value)
                                 if old_ip == dic_obj['host']:
@@ -1035,7 +1105,7 @@ def student_add():
         return jsonify(error_code=1,status=400,err_msg='json error')
 
 # 学生删除
-@app.route('/stu_del',methods=['POST'])
+@app.route('/stu_del', methods=['POST'])
 def student_del():
     data = request.json
     timestamp = time.time()
@@ -1082,6 +1152,7 @@ def student_del():
 
     else:
         return jsonify(error_code=1,status=400,err_msg='json error')
+
 # 学生编辑
 # 改什么传什么，列表将原来未修改的值带上
 @app.route('/stu_edi',methods=['POST'])
@@ -1281,7 +1352,9 @@ def stu_all():
 
         timestamp = int(time.time())
         time_add = 60 * 60
+        print(11111111)
         query_set = Student.objects.all()
+        print(22222222)
         if query_set:
             try:
                 list_arr = []
