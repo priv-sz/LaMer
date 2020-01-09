@@ -1,0 +1,358 @@
+[
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "2485",
+                "test": "5171",
+                "task": "Face recognition",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": ""
+            }
+        ],
+        "note": "None",
+        "group_name": "FDDB",
+        "group_server_index": 0,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://vis-www.cs.umass.edu/fddb/",
+        "task": "Face recognition",
+        "group_server_len": 7,
+        "institution": "University of Massachusetts",
+        "size": "",
+        "year": "2010",
+        "address": "In each intranet server",
+        "name": "FDDB",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "1.2million",
+                "test": "100k",
+                "task": "object detection",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": "50k"
+            }
+        ],
+        "note": "None",
+        "group_name": "ILSVRC2017",
+        "group_server_index": 1,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://image-net.org/",
+        "task": "object detection",
+        "group_server_len": 7,
+        "institution": " Stanford University, Princeton University,University of North Carolina, Chapel Hill",
+        "size": "1T",
+        "year": "2017",
+        "address": "In each intranet server",
+        "name": "ILSVRC2017",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "30462",
+                "test": "10000",
+                "task": "Single Person",
+                "data_format": "image/video",
+                "annotations_format": "json",
+                "val": "10000"
+            },
+            {
+                "train": "28280",
+                "test": "5000",
+                "task": "Multi_Person",
+                "data_format": "image/video",
+                "annotations_format": "json",
+                "val": "5000"
+            },
+            {
+                "train": "304",
+                "test": "50",
+                "task": "Video Multi-Person Human Parsing",
+                "data_format": "image/video",
+                "annotations_format": "json",
+                "val": "50"
+            },
+            {
+                "train": "52236",
+                "test": "10544",
+                "task": "Image-based Multi-pose Virtual Try On",
+                "data_format": "image/video",
+                "annotations_format": "json",
+                "val": ""
+            }
+        ],
+        "note": "None",
+        "group_name": "CIHP",
+        "group_server_index": 2,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://sysu-hcp.net/lip/overview.php",
+        "task": "human parsing",
+        "group_server_len": 7,
+        "institution": "Sun Yat-sen University",
+        "size": "",
+        "year": "2018",
+        "address": "In each intranet server",
+        "name": "CIHP",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "12881",
+                "test": "16102",
+                "task": "Face recognition",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": "3220"
+            }
+        ],
+        "note": "None",
+        "group_name": "Wider_Face",
+        "group_server_index": 3,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://shuoyang1213.me/WIDERFACE/index.html",
+        "task": "Face recognition",
+        "group_server_len": 7,
+        "institution": "Multimedia Laboratory, Department of Information Engineering, The Chinese University of Hong Kong",
+        "size": "",
+        "year": "2015",
+        "address": "In each intranet server",
+        "name": "Wider_Face",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "118k",
+                "test": "41k",
+                "task": "detection",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": "5k"
+            },
+            {
+                "train": "118k",
+                "test": "41k",
+                "task": "segmentation",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": "5k"
+            }
+        ],
+        "note": "None",
+        "group_name": "MSCOCO2017",
+        "group_server_index": 4,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://cocodataset.org",
+        "task": [
+            "detection",
+            "segmentation"
+        ],
+        "group_server_len": 7,
+        "institution": "Microsoft",
+        "size": "44G",
+        "year": "2017",
+        "address": "In each intranet server",
+        "name": "MSCOCO2017",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "500k",
+                "test": "100k",
+                "task": "classification",
+                "data_format": "image",
+                "annotations_format": "json",
+                "val": ""
+            }
+        ],
+        "note": "Cifar-10",
+        "group_name": "cifar",
+        "group_server_index": 5,
+        "group_index": 0,
+        "class": "A",
+        "url": "https://www.cs.toronto.edu/~kriz/cifar.html",
+        "task": "classification",
+        "group_server_len": 7,
+        "institution": "University of Toronto",
+        "size": "",
+        "year": "2015",
+        "address": "In each intranet server",
+        "name": "cifar",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "details": [
+            {
+                "train": "20k",
+                "test": "3k",
+                "task": "Scene Parsing",
+                "data_format": "image",
+                "annotations_format": "png",
+                "val": "2k"
+            },
+            {
+                "train": "20k",
+                "test": "3k",
+                "task": "Instance Segmentation",
+                "data_format": "image",
+                "annotations_format": "png",
+                "val": "2k"
+            },
+            {
+                "train": "20k",
+                "test": "3k",
+                "task": "Semantic Boundary Detection",
+                "data_format": "image",
+                "annotations_format": "png",
+                "val": "2k"
+            }
+        ],
+        "note": "None",
+        "group_name": "ADE2017",
+        "group_server_index": 6,
+        "group_index": 0,
+        "class": "A",
+        "url": "http://placeschallenge.csail.mit.edu/",
+        "task": [
+            "Scene Parsing",
+            "Instance Segmentation",
+            "Semantic Boundary Detection"
+        ],
+        "group_server_len": 7,
+        "institution": "MIT, CMU, University of Toronto",
+        "size": "3.8G",
+        "year": "2017",
+        "address": "In each intranet server",
+        "name": "ADE2017",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "details": [
+            {
+                "data_format": "image",
+                "annotations_format": "txt",
+                "train": 2501,
+                "val": 2510,
+                "test": 4952,
+                "task": "classification"
+            },
+            {
+                "data_format": "image",
+                "annotations_format": "json",
+                "train": 2501,
+                "val": 2510,
+                "test": 4952,
+                "task": "detection"
+            },
+            {
+                "data_format": "image",
+                "annotations_format": "png",
+                "train": 2501,
+                "val": 2510,
+                "test": 4952,
+                "task": "segmentation"
+            }
+        ],
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "group_server_len": 2,
+        "note": "None",
+        "size": "6.9G",
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "class": "A",
+        "name": "VOC2007",
+        "group_name": "VOC_PASCAL",
+        "group_len": 2,
+        "group_index": 0,
+        "address": "In each intranet server",
+        "group_server_index": 0,
+        "year": 2017,
+        "group_server_name": [
+            "192.168.88.191"
+        ]
+    },
+    {
+        "details": [
+            {
+                "data_format": "image",
+                "annotations_format": "txt",
+                "train": 5717,
+                "val": 5823,
+                "test": 10991,
+                "task": "classification"
+            },
+            {
+                "data_format": "image",
+                "annotations_format": "json",
+                "train": 5717,
+                "val": 5823,
+                "test": 10991,
+                "task": "detection"
+            },
+            {
+                "data_format": "image",
+                "annotations_format": "png",
+                "train": 5717,
+                "val": 5823,
+                "test": 10991,
+                "task": "segmentation"
+            }
+        ],
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "group_server_len": 2,
+        "note": "None",
+        "size": "6.9G",
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "class": "A",
+        "name": "VOC2012",
+        "group_name": "VOC_PASCAL",
+        "group_len": 2,
+        "group_index": 1,
+        "address": "In each intranet server",
+        "group_server_index": 1,
+        "year": 2017,
+        "group_server_name": [
+            "192.168.88.191"
+        ]
+    }
+]

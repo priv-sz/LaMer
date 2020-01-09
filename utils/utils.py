@@ -12,7 +12,8 @@ from pymongo import MongoClient
 import traceback
 
 # from config import *
-dir_path = os.getcwd()
+# dir_path = os.getcwd()
+dir_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 config_path = dir_path+'/config/config.txt'
 monit_path = dir_path + '/monitor_server.py'
 local_file = dir_path + '/remote_files/monitor_perf.py'
@@ -25,6 +26,7 @@ backupCount = 10
 
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
 
 def edi_data(host,user,pwd,time_,moni_data,moni_script):
     try:

@@ -1,18 +1,5 @@
-import subprocess
-import time
-import paramiko
-import select
-import redis
-import socket
-import pymysql
-import os
-import datetime
-import sys
-import logging
 import logging.handlers
-import threading
-import multiprocessing
-from utils import *
+from utils.utils import *
 from pymongo import MongoClient
 
 # from config import *
@@ -90,6 +77,7 @@ def run(moni_time):
     #     # p.join()
     #     t = threading.Thread(target=data_run,args=(host,user,pwd,time_))
     #     t.start()
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:

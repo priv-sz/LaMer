@@ -1,0 +1,8 @@
+{'pwd': 'priv123', 'name': '服务器 60', 'user': 'user', 'interval': 1800, 'host': '192.168.88.60'}
+{'pwd': 'priv123', 'user': 'user', 'name': '服务器 40', 'host': '192.168.88.40', 'interval': 1800}
+{'pwd': 'priv123', 'name': '服务器 20', 'host': '192.168.88.20', 'interval': 1800, 'user': 'user'}
+{'name': '服务器 210', 'pwd': 'priv123', 'interval': 1800, 'host': '192.168.88.21', 'user': 'user'}
+{'name': '服务器 109', 'host': '192.168.88.109', 'user': 'user', 'interval': 1800, 'pwd': 'priv123'}
+{'name': '服务器 91', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.191'}
+{'name': '服务器 123', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.123'}
+{'name': '服务器 197', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.197'}

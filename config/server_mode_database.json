@@ -1,0 +1,571 @@
+{
+    "192.168.88.60": [
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        },
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        },
+        {
+            "name": "kitti",
+            "tesk": "自动驾驶",
+            "issuer": "德国卡尔斯鲁厄理工学院和丰田美国技术研究院联合创办",
+            "publish_timestamp": "2012年",
+            "website": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+            "count": "KITTI数据集针对不同的用途，将数据集分为如下部分：stereo、flow、sceneflow、depth、odometry、\nobject、tracking、road、semantics和raw data，\nraw data数据集按照类别被分为Road、City、Residential、Campus和Person\n分别以视频的形式",
+            "remarks": ""
+        },
+        {
+            "name": "FashionAI",
+            "tesk": "时尚服饰",
+            "issuer": "香港理工大学与阿里",
+            "publish_timestamp": "2018年",
+            "website": "http://fashionai.alibaba.com/datasets/",
+            "count": "每张图片都指定了对应的服饰，共5类：上衣（blouse）、外套（outwear）、连身裙（dress）、半身裙（skirt）、裤子（trousers）。",
+            "remarks": "该数据集网址已无法打开，数据集比赛结束后未公开，无数量的详细介绍"
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "DOTA",
+            "tesk": "遥感图像目标检测",
+            "issuer": "武汉大学计算视觉与摄影研究测量组",
+            "publish_timestamp": "2017年",
+            "website": "http://captain.whu.edu.cn/dotaweb/",
+            "count": "包含2806张航空图像，尺寸大约为4kx4k，包含15个类别共计188282个实例。其标注方式为四点确定的任意形状和方向的四边形（区别于传统的对边平行bbox）\n数据类别\nplane, ship, storage tank, baseball dia- mond, tennis court, swimming pool, ground track field, har- bor, bridge, large vehicle, small vehicle, helicopter, round- about, soccer ball field , basketball court.共计15个类，其中14个主类，small vehicle 和 large vehicle都是vehicle的子类。",
+            "remarks": ""
+        }
+    ],
+    "192.168.88.40": [
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "DukeMTMC",
+            "tesk": "多目标跟踪 ",
+            "issuer": "杜克大学",
+            "publish_timestamp": "2016年",
+            "website": "http://vision.cs.duke.edu/DukeMTMC/",
+            "count": "",
+            "remarks": "原网址已无法打开，目前最新的版本是DukeMTMC-reID"
+        },
+        {
+            "name": "kitti",
+            "tesk": "自动驾驶",
+            "issuer": "德国卡尔斯鲁厄理工学院和丰田美国技术研究院联合创办",
+            "publish_timestamp": "2012年",
+            "website": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+            "count": "KITTI数据集针对不同的用途，将数据集分为如下部分：stereo、flow、sceneflow、depth、odometry、\nobject、tracking、road、semantics和raw data，\nraw data数据集按照类别被分为Road、City、Residential、Campus和Person\n分别以视频的形式",
+            "remarks": ""
+        }
+    ],
+    "192.168.88.221": [
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        }
+    ],
+    "192.168.88.70": [
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "kitti",
+            "tesk": "自动驾驶",
+            "issuer": "德国卡尔斯鲁厄理工学院和丰田美国技术研究院联合创办",
+            "publish_timestamp": "2012年",
+            "website": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+            "count": "KITTI数据集针对不同的用途，将数据集分为如下部分：stereo、flow、sceneflow、depth、odometry、\nobject、tracking、road、semantics和raw data，\nraw data数据集按照类别被分为Road、City、Residential、Campus和Person\n分别以视频的形式",
+            "remarks": ""
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "DukeMTMC",
+            "tesk": "多目标跟踪 ",
+            "issuer": "杜克大学",
+            "publish_timestamp": "2016年",
+            "website": "http://vision.cs.duke.edu/DukeMTMC/",
+            "count": "",
+            "remarks": "原网址已无法打开，目前最新的版本是DukeMTMC-reID"
+        },
+        {
+            "name": "LFW",
+            "tesk": "人脸识别",
+            "issuer": "美国马萨诸塞州立大学阿默斯特分校计算机视觉实验室",
+            "publish_timestamp": "2017年",
+            "website": "http://vis-www.cs.umass.edu/lfw/",
+            "count": "13233 images and 5749 people\ntrain：match pairs/mismatch pairs\ntest：match pairs/mismatch pairs\npair_train:1100\npair_test:500\npeople_train:4038\npeople_test:1711",
+            "remarks": "Each image is available as \"lfw/name/name_xxxx.jpg\", where \"xxxx\" is\nthe image number padded to four characters with leading zeroes.  For\nexample, the 10th George_W_Bush image can be found as\n\"lfs/George_W_Bush/George_W_Bush_0010.jpg\"."
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        },
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        }
+    ],
+    "192.168.88.20": [
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "DOTA",
+            "tesk": "遥感图像目标检测",
+            "issuer": "武汉大学计算视觉与摄影研究测量组",
+            "publish_timestamp": "2017年",
+            "website": "http://captain.whu.edu.cn/dotaweb/",
+            "count": "包含2806张航空图像，尺寸大约为4kx4k，包含15个类别共计188282个实例。其标注方式为四点确定的任意形状和方向的四边形（区别于传统的对边平行bbox）\n数据类别\nplane, ship, storage tank, baseball dia- mond, tennis court, swimming pool, ground track field, har- bor, bridge, large vehicle, small vehicle, helicopter, round- about, soccer ball field , basketball court.共计15个类，其中14个主类，small vehicle 和 large vehicle都是vehicle的子类。",
+            "remarks": ""
+        },
+        {
+            "name": "DukeMTMC",
+            "tesk": "多目标跟踪 ",
+            "issuer": "杜克大学",
+            "publish_timestamp": "2016年",
+            "website": "http://vision.cs.duke.edu/DukeMTMC/",
+            "count": "",
+            "remarks": "原网址已无法打开，目前最新的版本是DukeMTMC-reID"
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        }
+    ],
+    "192.168.88.21": [
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "FashionAI",
+            "tesk": "时尚服饰",
+            "issuer": "香港理工大学与阿里",
+            "publish_timestamp": "2018年",
+            "website": "http://fashionai.alibaba.com/datasets/",
+            "count": "每张图片都指定了对应的服饰，共5类：上衣（blouse）、外套（outwear）、连身裙（dress）、半身裙（skirt）、裤子（trousers）。",
+            "remarks": "该数据集网址已无法打开，数据集比赛结束后未公开，无数量的详细介绍"
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        },
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        }
+    ],
+    "192.168.88.109": [
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        },
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "FashionAI",
+            "tesk": "时尚服饰",
+            "issuer": "香港理工大学与阿里",
+            "publish_timestamp": "2018年",
+            "website": "http://fashionai.alibaba.com/datasets/",
+            "count": "每张图片都指定了对应的服饰，共5类：上衣（blouse）、外套（outwear）、连身裙（dress）、半身裙（skirt）、裤子（trousers）。",
+            "remarks": "该数据集网址已无法打开，数据集比赛结束后未公开，无数量的详细介绍"
+        }
+    ],
+    "192.168.88.191": [
+        {
+            "name": "FashionAI",
+            "tesk": "时尚服饰",
+            "issuer": "香港理工大学与阿里",
+            "publish_timestamp": "2018年",
+            "website": "http://fashionai.alibaba.com/datasets/",
+            "count": "每张图片都指定了对应的服饰，共5类：上衣（blouse）、外套（outwear）、连身裙（dress）、半身裙（skirt）、裤子（trousers）。",
+            "remarks": "该数据集网址已无法打开，数据集比赛结束后未公开，无数量的详细介绍"
+        },
+        {
+            "name": "DukeMTMC",
+            "tesk": "多目标跟踪 ",
+            "issuer": "杜克大学",
+            "publish_timestamp": "2016年",
+            "website": "http://vision.cs.duke.edu/DukeMTMC/",
+            "count": "",
+            "remarks": "原网址已无法打开，目前最新的版本是DukeMTMC-reID"
+        },
+        {
+            "name": "kitti",
+            "tesk": "自动驾驶",
+            "issuer": "德国卡尔斯鲁厄理工学院和丰田美国技术研究院联合创办",
+            "publish_timestamp": "2012年",
+            "website": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+            "count": "KITTI数据集针对不同的用途，将数据集分为如下部分：stereo、flow、sceneflow、depth、odometry、\nobject、tracking、road、semantics和raw data，\nraw data数据集按照类别被分为Road、City、Residential、Campus和Person\n分别以视频的形式",
+            "remarks": ""
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        },
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        },
+        {
+            "name": "LFW",
+            "tesk": "人脸识别",
+            "issuer": "美国马萨诸塞州立大学阿默斯特分校计算机视觉实验室",
+            "publish_timestamp": "2017年",
+            "website": "http://vis-www.cs.umass.edu/lfw/",
+            "count": "13233 images and 5749 people\ntrain：match pairs/mismatch pairs\ntest：match pairs/mismatch pairs\npair_train:1100\npair_test:500\npeople_train:4038\npeople_test:1711",
+            "remarks": "Each image is available as \"lfw/name/name_xxxx.jpg\", where \"xxxx\" is\nthe image number padded to four characters with leading zeroes.  For\nexample, the 10th George_W_Bush image can be found as\n\"lfs/George_W_Bush/George_W_Bush_0010.jpg\"."
+        },
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        },
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        }
+    ],
+    "192.168.88.123": [
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        },
+        {
+            "name": "chestX-ray8",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院",
+            "publish_timestamp": "2017年",
+            "website": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+            "count": "ChestX-ray8数据集\nAtelectasis：5789  Cardiomegaly：1010  Effusion：6331  Infiltration：10317\nMass：6046  Nodule：1971  Pneumonia：1062  Pneumothorax：2793  Normal：84312\n\n\n",
+            "remarks": "目前吕乐博士团队对这个数据库中的八种疾病图像进行研究，构建了ChestX-ray8数据集，借助ImageNet上的预训练模型对ChestX-ray8数据集进行多分类问题探索，研究成果详见：Wang_ChestX-ray8_Hospital-Scale_Chest_CVPR_2017_paper。\n同时，吴恩达团队也在ChestX-ray14数据库的基础上进行肺炎诊断，其训练的CheXNet深度模型在肺炎诊断任务上的表现超过了人类，研究成果详见：CheXNet-Radiologist-Level Pneumonia Detection on Chest X-Rays with Deep Learning。"
+        }
+    ],
+    "192.168.88.197": [
+        {
+            "name": "AI_Challenger",
+            "tesk": "比赛",
+            "issuer": "创新工场、搜狗、美团点评、美图联合主办",
+            "publish_timestamp": "2018年",
+            "website": "https://challenger.ai",
+            "count": "观点型问题阅读理解数据集\n训练集：25 万\n验证集：3 万\n测试集A：1 万\n测试集B：1 万\n每条数据为<问题，篇章，候选答案> 三元组组成，每个问题对应一个篇章（500 字以内），以及包含正确答案的三个候选答案。\n\n细粒度用户评论情感分析数据集\n训练集：105,000 条\n验证集：15,000 条\n测试集 A：15,000 条\n测试集 B：200,000 条\n\n英中翻译数据集\n训练集：1300 万\n验证集：8000\n测试集 A：8000\n测试集 B：8000\n\n多标签短视频分类数据集\n数据集共包含 20 万条短视频，涵盖舞蹈、健身、唱歌等 63 类流行元素，分为训练集（12 万）、验证集（3 万）、测试集 A（3 万）、测试集 B（3 万）。大部分视频的长度为5-15秒。\n\n天气预报数据集\n训练集：1188 天样本\n\n验证集：89 天样本\n\n测试 A 集：包含两个数据集，分别为 2018 年 8 月 29 日至 9 月 24 日和 2018 年 8 月 29 日至 10 月 15 日，分别有 27 天和 48 天样本\n\n测试 B 集：包含 7 个数据集，全部以 2018 年 8 月 29 日为起始日期，以 10 月 28 日至 11 月 3 日分别为结束日期，分别有 61–67 天样本\n\n农作物病害数据集\n标注图片 50,000 张、包含 10 种植物的 27 种病害。\n\n本数据集合由上海新客科技和创新工场联合打造。数据集有 61 个分类（按「物种-病害-程度」分），10 个物种，27 种病害（其中 24 个病害有分一般和严重两种程度），10 个健康分类，47393 张图片。每张图包含一片农作物的叶子，叶子占据图片主要位置。数据集随机分为训练（70%）、验证（10%）、测试 A（10%）与测试 B（10%）四个子数据集。其中，训练集有 32,739 张图片，验证集有 4,982 张图片，测试集 A 有 4,959 张图片，测试集 B 有 4,957 张图片。\n\n眼底病变数据集\n训练数据包括 cube OCT 数据和水肿标记数据，每个 cube 含有 128 张图片。\n\n验证数据除了 cube OCT 数据和水肿标记数据，还包括提交标准即水肿类型标记和体素标记。\n\n水肿类型标记为 [128，3] 的 01 矩阵，分别标记 128 张图片中对应水肿类型。\n\n体素标记为 [128,1024,512] 矩阵，0、1、2、3 分别代表 Background、REA、SRF、PED。\n\n测试数据为 cube OCT 数据。\n\n图像属性数据集\n本数据集共 78,017 张图片，可划分为 5 个超类（super-class），分别是动物（Animals）、水果（Fruits）、交通工具（Vehicles）、电子产品（Electronics）、发型（Hairstyles）。其中，动物和水果属于自然产物，交通工具和电子产品属于人造物，发型属于抽象概念。每个超类分别包含 A: 50, F: 50, V: 50, E: 50, H: 30 个类别，总计 230 个类别。对于每个超类（super-class），分别设计了 A: 123, F: 58, V: 81, E: 75, H: 22 个属性，共 359 个属性。每张图片只包含一个前景物体，标注了标签和物体包围框。对于每个类别，随机挑选了 20 张图片进行属性标注。\n\n训练集（seen classes）：80% 类别 \n\n测试集（unseen classes）：20% 类别\n\n训练集所有图片均标注了标签和包围框。对于部分图片（20 张/类），标注了二值属性，属性值为 0 或 1，表示属性「存在」或「不存在」。",
+            "remarks": ""
+        },
+        {
+            "name": "kitti",
+            "tesk": "自动驾驶",
+            "issuer": "德国卡尔斯鲁厄理工学院和丰田美国技术研究院联合创办",
+            "publish_timestamp": "2012年",
+            "website": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+            "count": "KITTI数据集针对不同的用途，将数据集分为如下部分：stereo、flow、sceneflow、depth、odometry、\nobject、tracking、road、semantics和raw data，\nraw data数据集按照类别被分为Road、City、Residential、Campus和Person\n分别以视频的形式",
+            "remarks": ""
+        },
+        {
+            "name": "FashionAI",
+            "tesk": "时尚服饰",
+            "issuer": "香港理工大学与阿里",
+            "publish_timestamp": "2018年",
+            "website": "http://fashionai.alibaba.com/datasets/",
+            "count": "每张图片都指定了对应的服饰，共5类：上衣（blouse）、外套（outwear）、连身裙（dress）、半身裙（skirt）、裤子（trousers）。",
+            "remarks": "该数据集网址已无法打开，数据集比赛结束后未公开，无数量的详细介绍"
+        },
+        {
+            "name": "CASIA-WebFace",
+            "tesk": "人脸识别",
+            "issuer": "中科院李子青课题组",
+            "publish_timestamp": "2014年",
+            "website": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+            "count": "CASIA-WebFace数据集包含了10575 个人的494414 张图像",
+            "remarks": "原网址无法打开，下载该数据集后，该数据集中无训练、测试分类，只有按序号排列的多个文件夹，里面的图片数不一，总和494414张"
+        },
+        {
+            "name": "DOTA",
+            "tesk": "遥感图像目标检测",
+            "issuer": "武汉大学计算视觉与摄影研究测量组",
+            "publish_timestamp": "2017年",
+            "website": "http://captain.whu.edu.cn/dotaweb/",
+            "count": "包含2806张航空图像，尺寸大约为4kx4k，包含15个类别共计188282个实例。其标注方式为四点确定的任意形状和方向的四边形（区别于传统的对边平行bbox）\n数据类别\nplane, ship, storage tank, baseball dia- mond, tennis court, swimming pool, ground track field, har- bor, bridge, large vehicle, small vehicle, helicopter, round- about, soccer ball field , basketball court.共计15个类，其中14个主类，small vehicle 和 large vehicle都是vehicle的子类。",
+            "remarks": ""
+        },
+        {
+            "name": "CrowdHuman",
+            "tesk": "人群中人类检测",
+            "issuer": "旷视",
+            "publish_timestamp": "2018年",
+            "website": "http://www.crowdhuman.org",
+            "count": "该数据集拥有 15000 张用于训练的图像，4370 张用于验证的图像和 5000 张用于测试的图像，总共有 470K 个来自训练和验证子集的人类实例，\n数据集里的每张图片包含 23 个人，同时存在着各种各样的遮挡。\n每个人类实例都用头部边界框、人类可见区域边界框和人体全身边界框注释。\nImages:15000  persons:339,565   ignore regins:99,227  unique persons:339,565",
+            "remarks": ""
+        },
+        {
+            "name": "LFW",
+            "tesk": "人脸识别",
+            "issuer": "美国马萨诸塞州立大学阿默斯特分校计算机视觉实验室",
+            "publish_timestamp": "2017年",
+            "website": "http://vis-www.cs.umass.edu/lfw/",
+            "count": "13233 images and 5749 people\ntrain：match pairs/mismatch pairs\ntest：match pairs/mismatch pairs\npair_train:1100\npair_test:500\npeople_train:4038\npeople_test:1711",
+            "remarks": "Each image is available as \"lfw/name/name_xxxx.jpg\", where \"xxxx\" is\nthe image number padded to four characters with leading zeroes.  For\nexample, the 10th George_W_Bush image can be found as\n\"lfs/George_W_Bush/George_W_Bush_0010.jpg\"."
+        },
+        {
+            "name": "chestX-ray14",
+            "tesk": "肺部X光数据库",
+            "issuer": "NIH研究院吕乐博士团队",
+            "publish_timestamp": "2017年",
+            "website": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+            "count": "ChestX-ray14数据集包含 14 种肺部疾病（肺不张、变实、浸润、气胸、水肿、肺气肿、纤维变性、积液、肺炎、胸膜增厚、心脏肥大、结节、肿块和疝气）的 10 多万张 X光前视图（约42G），研究人员对数据采用NLP方法对图像进行标注，1-14类分别对应14种肺部疾病，第15类表示未发现疾病。\n training (28744 patients, 98637 images), validation (1672 patients, 6351 images), and test (389 patients, 420 images)",
+            "remarks": ""
+        },
+        {
+            "name": "cifar",
+            "tesk": "图像分类",
+            "issuer": "多伦多大学",
+            "publish_timestamp": "",
+            "website": "https://www.cs.toronto.edu/~kriz/cifar.html",
+            "count": "CIFAR-10数据集包含10个类，总共有60000张32x32彩色图像，每个类包含6000张图像。培训图片50000张，测试图片10000张。\n\n数据集分为5个训练集和1个测试集，每个集包含10000张图像。测试组恰好包含每个类中随机选择的1000张图像。训练组则随机地包含其余的图像，但是一些训练组可能包含来自一个类的图像多于另一个类的图像。在它们之间，训练组包含每个类的5000个图像。\n\n10个类包括：\nairplane 、automobile、bird、cat、deer、dog、frog、horse、ship、truck\n\nCIFAR-100有100个类，每个类包含600张图像。每班有500张训练图片和100张测试图片。CIFAR-100中的100个类被分为20个超类。每个图像都带有一个“精细”标签(它所属的类)和一个“粗”标签(它所属的超类)。",
+            "remarks": "cifar-100的100个类别：\nSuperclass\tClasses\naquatic mammals\tbeaver, dolphin, otter, seal, whale\nfish\taquarium fish, flatfish, ray, shark, trout\nflowers\torchids, poppies, roses, sunflowers, tulips\nfood containers\tbottles, bowls, cans, cups, plates\nfruit and vegetables\tapples, mushrooms, oranges, pears, sweet peppers\nhousehold electrical devices\tclock, computer keyboard, lamp, telephone, television\nhousehold furniture\tbed, chair, couch, table, wardrobe\ninsects\tbee, beetle, butterfly, caterpillar, cockroach\nlarge carnivores\tbear, leopard, lion, tiger, wolf\nlarge man-made outdoor things\tbridge, castle, house, road, skyscraper\nlarge natural outdoor scenes\tcloud, forest, mountain, plain, sea\nlarge omnivores and herbivores\tcamel, cattle, chimpanzee, elephant, kangaroo\nmedium-sized mammals\tfox, porcupine, possum, raccoon, skunk\nnon-insect invertebrates\tcrab, lobster, snail, spider, worm\npeople\tbaby, boy, girl, man, woman\nreptiles\tcrocodile, dinosaur, lizard, snake, turtle\nsmall mammals\thamster, mouse, rabbit, shrew, squirrel\ntrees\tmaple, oak, palm, pine, willow\nvehicles 1\tbicycle, bus, motorcycle, pickup truck, train\nvehicles 2\tlawn-mower, rocket, streetcar, tank, tractor"
+        }
+    ]
+}

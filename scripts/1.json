@@ -1,0 +1,239 @@
+[
+    {
+        "task": "Face recognition",
+        "group_server_len": 7,
+        "url": "http://vis-www.cs.umass.edu/fddb/",
+        "group_index": 0,
+        "group_name": "FDDB",
+        "institution": "University of Massachusetts",
+        "group_server_index": 0,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "Face recognition",
+                "train": "2485",
+                "data_format": "image",
+                "test": "5171",
+                "val": "",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "FDDB",
+        "group_len": 1,
+        "year": "2010",
+        "size": ""
+    },
+    {
+        "task": "object detection",
+        "group_server_len": 7,
+        "url": "http://image-net.org/",
+        "group_index": 0,
+        "group_name": "ILSVRC2017",
+        "institution": " Stanford University, Princeton University,University of North Carolina, Chapel Hill",
+        "group_server_index": 1,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "object detection",
+                "train": "1.2million",
+                "data_format": "image",
+                "test": "100k",
+                "val": "50k",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "ILSVRC2017",
+        "group_len": 1,
+        "year": "2017",
+        "size": "1T"
+    },
+    {
+        "task": "human parsing",
+        "group_server_len": 7,
+        "url": "http://sysu-hcp.net/lip/overview.php",
+        "group_index": 0,
+        "group_name": "CIHP",
+        "institution": "Sun Yat-sen University",
+        "group_server_index": 2,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "Single Person",
+                "train": "30462",
+                "data_format": "image/video",
+                "test": "10000",
+                "val": "10000",
+                "annotations_format": "json"
+            },
+            {
+                "task": "Multi_Person",
+                "train": "28280",
+                "data_format": "image/video",
+                "test": "5000",
+                "val": "5000",
+                "annotations_format": "json"
+            },
+            {
+                "task": "Video Multi-Person Human Parsing",
+                "train": "304",
+                "data_format": "image/video",
+                "test": "50",
+                "val": "50",
+                "annotations_format": "json"
+            },
+            {
+                "task": "Image-based Multi-pose Virtual Try On",
+                "train": "52236",
+                "data_format": "image/video",
+                "test": "10544",
+                "val": "",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "CIHP",
+        "group_len": 1,
+        "year": "2018",
+        "size": ""
+    },
+    {
+        "task": "Face recognition",
+        "group_server_len": 7,
+        "url": "http://shuoyang1213.me/WIDERFACE/index.html",
+        "group_index": 0,
+        "group_name": "Wider_Face",
+        "institution": "Multimedia Laboratory, Department of Information Engineering, The Chinese University of Hong Kong",
+        "group_server_index": 3,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "Face recognition",
+                "train": "12881",
+                "data_format": "image",
+                "test": "16102",
+                "val": "3220",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "Wider_Face",
+        "group_len": 1,
+        "year": "2015",
+        "size": ""
+    },
+    {
+        "task": [
+            "detection",
+            "segmentation"
+        ],
+        "group_server_len": 7,
+        "url": "http://cocodataset.org",
+        "group_index": 0,
+        "group_name": "MSCOCO2017",
+        "institution": "Microsoft",
+        "group_server_index": 4,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "detection",
+                "train": "118k",
+                "data_format": "image",
+                "test": "41k",
+                "val": "5k",
+                "annotations_format": "json"
+            },
+            {
+                "task": "segmentation",
+                "train": "118k",
+                "data_format": "image",
+                "test": "41k",
+                "val": "5k",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "MSCOCO2017",
+        "group_len": 1,
+        "year": "2017",
+        "size": "44G"
+    },
+    {
+        "task": "classification",
+        "group_server_len": 7,
+        "url": "https://www.cs.toronto.edu/~kriz/cifar.html",
+        "group_index": 0,
+        "group_name": "cifar",
+        "institution": "University of Toronto",
+        "group_server_index": 5,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "Cifar-10",
+        "details": [
+            {
+                "task": "classification",
+                "train": "500k",
+                "data_format": "image",
+                "test": "100k",
+                "val": "",
+                "annotations_format": "json"
+            }
+        ],
+        "name": "cifar",
+        "group_len": 1,
+        "year": "2015",
+        "size": ""
+    },
+    {
+        "task": [
+            "Scene Parsing",
+            "Instance Segmentation",
+            "Semantic Boundary Detection"
+        ],
+        "group_server_len": 7,
+        "url": "http://placeschallenge.csail.mit.edu/",
+        "group_index": 0,
+        "group_name": "ADE2017",
+        "institution": "MIT, CMU, University of Toronto",
+        "group_server_index": 6,
+        "class": "A",
+        "address": "In each intranet server",
+        "note": "None",
+        "details": [
+            {
+                "task": "Scene Parsing",
+                "train": "20k",
+                "data_format": "image",
+                "test": "3k",
+                "val": "2k",
+                "annotations_format": "png"
+            },
+            {
+                "task": "Instance Segmentation",
+                "train": "20k",
+                "data_format": "image",
+                "test": "3k",
+                "val": "2k",
+                "annotations_format": "png"
+            },
+            {
+                "task": "Semantic Boundary Detection",
+                "train": "20k",
+                "data_format": "image",
+                "test": "3k",
+                "val": "2k",
+                "annotations_format": "png"
+            }
+        ],
+        "name": "ADE2017",
+        "group_len": 1,
+        "year": "2017",
+        "size": "3.8G"
+    }
+]

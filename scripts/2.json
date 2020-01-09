@@ -1,0 +1,94 @@
+[
+    {
+        "name": "VOC2007",
+        "group_index": 0,
+        "year": 2017,
+        "size": "6.9G",
+        "group_len": 2,
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "address": "In each intranet server",
+        "note": "None",
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "group_server_len": 2,
+        "group_server_index": 0,
+        "class": "A",
+        "group_name": "VOC_PASCAL",
+        "details": [
+            {
+                "test": 4952,
+                "data_format": "image",
+                "annotations_format": "txt",
+                "task": "classification",
+                "train": 2501,
+                "val": 2510
+            },
+            {
+                "test": 4952,
+                "data_format": "image",
+                "annotations_format": "json",
+                "task": "detection",
+                "train": 2501,
+                "val": 2510
+            },
+            {
+                "test": 4952,
+                "data_format": "image",
+                "annotations_format": "png",
+                "task": "segmentation",
+                "train": 2501,
+                "val": 2510
+            }
+        ]
+    },
+    {
+        "name": "VOC2012",
+        "group_index": 1,
+        "year": 2017,
+        "size": "6.9G",
+        "group_len": 2,
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "address": "In each intranet server",
+        "note": "None",
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "group_server_len": 2,
+        "group_server_index": 1,
+        "class": "A",
+        "group_name": "VOC_PASCAL",
+        "details": [
+            {
+                "test": 10991,
+                "data_format": "image",
+                "annotations_format": "txt",
+                "task": "classification",
+                "train": 5717,
+                "val": 5823
+            },
+            {
+                "test": 10991,
+                "data_format": "image",
+                "annotations_format": "json",
+                "task": "detection",
+                "train": 5717,
+                "val": 5823
+            },
+            {
+                "test": 10991,
+                "data_format": "image",
+                "annotations_format": "png",
+                "task": "detection",
+                "train": 5717,
+                "val": 5823
+            }
+        ]
+    }
+]

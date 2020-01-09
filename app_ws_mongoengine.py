@@ -1,21 +1,13 @@
 #!flask/bin/python
-import json
-import time, datetime
-import os
-import redis
 import mongoengine
-import socket
-import pymysql
-import paramiko
-import copy
 import uuid
 import base64
 
-from flask import Flask, render_template, jsonify, make_response, current_app, redirect
+from flask import Flask, render_template, jsonify
 from flask import request
 from model.Model import *
 from flask_cors import *
-from utils import *
+from utils.utils import *
 import traceback
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

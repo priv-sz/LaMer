@@ -1,0 +1,1 @@
+{'pwd': 'priv123', 'name': '服务器 60', 'user': 'user', 'interval': 1800, 'host': '192.168.88.60'}
