@@ -1,10 +1,6 @@
-{'pwd': 'priv123', 'name': '服务器 60', 'user': 'user', 'interval': 1800, 'host': '192.168.88.60'}
-{'pwd': 'priv123', 'user': 'user', 'name': '服务器 40', 'host': '192.168.88.40', 'interval': 1800}
-{'interval': 1800, 'pwd': 'priv123', 'host': '192.168.88.221', 'name': '服务器 221', 'user': 'user'}
-{'pwd': 'priv123', 'name': '服务器 70', 'host': '192.168.88.70', 'interval': 1800, 'user': 'user'}
-{'pwd': 'priv123', 'name': '服务器 20', 'host': '192.168.88.20', 'interval': 1800, 'user': 'user'}
-{'name': '服务器 210', 'pwd': 'priv123', 'interval': 1800, 'host': '192.168.88.21', 'user': 'user'}
-{'name': '服务器 109', 'host': '192.168.88.109', 'user': 'user', 'interval': 1800, 'pwd': 'priv123'}
-{'name': '服务器 91', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.191'}
-{'name': '服务器 123', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.123'}
-{'name': '服务器 197', 'interval': 1800, 'user': 'user', 'pwd': 'priv123', 'host': '192.168.88.197'}
+{'name': '服务器 176', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '172.16.105.176'}
+{'name': '服务器 172', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '172.16.105.172'}
+{'name': '服务器 173', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '172.16.105.173'}
+{'name': '服务器 174', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '172.16.105.174'}
+{'name': '云170', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '103.235.238.170'}
+{'name': '云 171', 'interval': 1800, 'user': 'vision', 'pwd': 'wiwide123', 'host': '103.235.238.171'}

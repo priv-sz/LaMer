@@ -1,0 +1,198 @@
+{
+    "diskUsage": 558,
+    "cpuUsagePercent": 1618,
+    "gpu_info": [
+        {
+            "temp": 68,
+            "fan": 0,
+            "version": "10.430.50",
+            "percent": 74.0,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441307,
+                    "gpu_mem": 9011,
+                    "gpu_use": 0,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12529",
+                    "user": "zhubin",
+                    "duration": "1-07:47:16"
+                }
+            ],
+            "power": "72W/250W",
+            "usedMemry": 9459204096,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 76,
+            "fan": 1,
+            "version": "10.430.50",
+            "percent": 75.2,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441308,
+                    "gpu_mem": 9159,
+                    "gpu_use": 1,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12530",
+                    "user": "zhubin",
+                    "duration": "1-07:49:07"
+                }
+            ],
+            "power": "77W/250W",
+            "usedMemry": 9614393344,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 70,
+            "fan": 2,
+            "version": "10.430.50",
+            "percent": 73.6,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441308,
+                    "gpu_mem": 8965,
+                    "gpu_use": 2,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12531",
+                    "user": "zhubin",
+                    "duration": "1-07:39:52"
+                }
+            ],
+            "power": "71W/250W",
+            "usedMemry": 9410969600,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 71,
+            "fan": 3,
+            "version": "10.430.50",
+            "percent": 86.1,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441308,
+                    "gpu_mem": 10491,
+                    "gpu_use": 3,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12532",
+                    "user": "zhubin",
+                    "duration": "1-07:35:56"
+                }
+            ],
+            "power": "113W/250W",
+            "usedMemry": 11011096576,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 69,
+            "fan": 4,
+            "version": "10.430.50",
+            "percent": 74.2,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441309,
+                    "gpu_mem": 9041,
+                    "gpu_use": 4,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12533",
+                    "user": "zhubin",
+                    "duration": "1-07:41:58"
+                }
+            ],
+            "power": "77W/250W",
+            "usedMemry": 9490661376,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 73,
+            "fan": 5,
+            "version": "10.430.50",
+            "percent": 72.9,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441309,
+                    "gpu_mem": 8877,
+                    "gpu_use": 5,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12534",
+                    "user": "zhubin",
+                    "duration": "1-07:24:52"
+                }
+            ],
+            "power": "69W/250W",
+            "usedMemry": 9318694912,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 71,
+            "fan": 6,
+            "version": "10.430.50",
+            "percent": 74.6,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441309,
+                    "gpu_mem": 9091,
+                    "gpu_use": 6,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12535",
+                    "user": "zhubin",
+                    "duration": "1-08:04:08"
+                }
+            ],
+            "power": "73W/250W",
+            "usedMemry": 9543090176,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        },
+        {
+            "temp": 71,
+            "fan": 7,
+            "version": "10.430.50",
+            "percent": 75.5,
+            "script": [
+                {
+                    "net_ip": "192.168.88.60",
+                    "config": "/home/zhubin/zb/workspace-grid_rcnn/grid_cascade_mapping/Pet-dev/cfgs/rcnn/mscoco/grid_cascade/iou_helper/rescore/e2e_grid_cascade@567_rcnn_R-50-FPN_2x_ms.yaml",
+                    "timestamp": 1580441309,
+                    "gpu_mem": 9201,
+                    "gpu_use": 7,
+                    "start_time": "15:31:25",
+                    "gpu_pid": "12536",
+                    "user": "zhubin",
+                    "duration": "1-07:49:39"
+                }
+            ],
+            "power": "77W/250W",
+            "usedMemry": 9658433536,
+            "totalMemry": 12788498432,
+            "name": "TITAN Xp"
+        }
+    ],
+    "net_num": 0,
+    "cpu_model": "Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz",
+    "TotalMemory": 125,
+    "cpu_num": 40,
+    "net_ip": "192.168.88.60",
+    "timestamp": 1580441315,
+    "UsageMemory": 66,
+    "diskTotal": 1832
+}

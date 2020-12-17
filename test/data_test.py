@@ -1,5 +1,25 @@
-import json
-data_json = {'UsageMemory': 25, 'diskTotal': 884, 'net_num': 0, 'cpu_num': 8, 'timestamp': 1578295020, 'cpuUsagePercent': 360.4, 'cpu_model': 'Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz', 'diskUsage': 343, 'TotalMemory': 31, 'net_ip': '192.168.88.99', 'gpu_info': [{'script': [{'start_time': '09:18', 'config': 'cfgs/rcnn/mscoco/fcos/fcos_R-50-FPN-P5-600_0.5x_diou_1.6.yaml', 'gpu_mem': 4788, 'duration': '357:33', 'user': 'user', 'timestamp': 1578295022, 'gpu_pid': '20898', 'gpu_use': 0, 'net_ip': '192.168.88.99'}], 'usedMemry': 5032247296, 'name': 'GeForce GTX TITAN X', 'percent': 39.3, 'power': '156W/250W', 'version': '10.410.48', 'fan': 0, 'totalMemry': 12806062080, 'temp': 83}, {'script': [{'start_time': '09:18', 'config': 'cfgs/rcnn/mscoco/fcos/fcos_R-50-FPN-P5-600_0.5x_diou_1.6.yaml', 'gpu_mem': 5776, 'duration': '357:34', 'user': 'user', 'timestamp': 1578295022, 'gpu_pid': '20899', 'gpu_use': 1, 'net_ip': '192.168.88.99'}], 'usedMemry': 6068240384, 'name': 'GeForce GTX TITAN X', 'percent': 47.4, 'power': '166W/250W', 'version': '10.410.48', 'fan': 1, 'totalMemry': 12803964928, 'temp': 86}, {'script': [{'start_time': '09:18', 'config': 'cfgs/rcnn/mscoco/fcos/fcos_R-50-FPN-P5-600_0.5x_diou_1.6.yaml', 'gpu_mem': 5776, 'duration': '357:31', 'user': 'user', 'timestamp': 1578295022, 'gpu_pid': '20900', 'gpu_use': 2, 'net_ip': '192.168.88.99'}], 'usedMemry': 6068240384, 'name': 'GeForce GTX TITAN X', 'percent': 47.4, 'power': '176W/250W', 'version': '10.410.48', 'fan': 2, 'totalMemry': 12806062080, 'temp': 91}], }
+import time
+import datetime
 
 
-print(json.dumps(data_json))
+def get_week():
+    now_time = int(time.time())
+    timeArray = time.localtime(now_time)
+    otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+    now_date = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+    loop_count = now_date.hour
+    week_now = now_date.weekday()
+    print(loop_count)
+
+    # 正序
+    time_gte = now_date - datetime.timedelta(days=week_now, hours=loop_count, minutes=now_date.minute, seconds=now_date.second)
+    timestamp_gte = int(time.mktime(time_gte.timetuple()))
+    timestamp_lte = timestamp_gte + 3600 * 24 * 7
+    time_lte = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(timestamp_lte))
+    return timestamp_gte, timestamp_lte
+
+
+if __name__ == '__main__':
+    mon, sun = get_week()
+    print(mon)
+    print(sun)

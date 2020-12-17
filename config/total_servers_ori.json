@@ -1,0 +1,1249 @@
+[
+    {
+        "url": "http://placeschallenge.csail.mit.edu/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "3.8G",
+        "group_server_index": 0,
+        "group_index": 0,
+        "group_name": "ADE2017",
+        "year": "2017",
+        "institution": "MIT, CMU, University of Toronto",
+        "task": "segmentation",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "png",
+                "task": "segmentation",
+                "test": 3000,
+                "train": 20000,
+                "val": 2000,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "ADE2017",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://shuoyang1213.me/WIDERFACE/index.html",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "3.9G",
+        "group_server_index": 1,
+        "group_index": 0,
+        "group_name": "Wider_Face",
+        "year": "2015",
+        "institution": "Multimedia Laboratory, Department of Information Engineering, The Chinese University of Hong Kong",
+        "task": "Face recognition",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "Face recognition",
+                "test": 16102,
+                "train": 12881,
+                "val": 3220,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "Wider_Face",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://image-net.org/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "1T",
+        "group_server_index": 2,
+        "group_index": 0,
+        "group_name": "ILSVRC2017",
+        "year": "2017",
+        "institution": "Stanford University, Princeton University,University of North Carolina, Chapel Hill",
+        "task": "classification",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "classification",
+                "test": 100000,
+                "train": 12000000,
+                "val": 50000,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "ILSVRC2017",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "https://www.cs.toronto.edu/~kriz/cifar.html/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 2,
+        "size": "0.68G",
+        "group_server_index": 3,
+        "group_index": 0,
+        "group_name": "cifar",
+        "year": "2015",
+        "institution": "University of Toronto",
+        "task": "classification",
+        "group_server_len": 28,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "classification",
+                "test": 100000,
+                "train": 500000,
+                "val": "",
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "cifar-10",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "https://www.cs.toronto.edu/~kriz/cifar.html/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 2,
+        "size": "0.68G",
+        "group_server_index": 4,
+        "group_index": 1,
+        "group_name": "cifar",
+        "year": "2015",
+        "institution": "University of Toronto",
+        "task": "classification",
+        "group_server_len": 28,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "classification",
+                "test": 10000,
+                "train": 50000,
+                "val": "",
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "cifar-100",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://vis-www.cs.umass.edu/fddb/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "0.597G",
+        "group_server_index": 5,
+        "group_index": 0,
+        "group_name": "FDDB",
+        "year": "2010",
+        "institution": "University of Massachusetts",
+        "task": "Face recognition",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "Face recognition",
+                "test": 5171,
+                "train": 2845,
+                "val": "",
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "FDDB",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://cocodataset.org",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "44G",
+        "group_server_index": 6,
+        "group_index": 0,
+        "group_name": "MSCOCO2017",
+        "year": "2017",
+        "institution": "Micosoft",
+        "task": [
+            "detection",
+            "person_keypoints",
+            "semantic_segmentation",
+            "instance_segmentation",
+            "densepose",
+            "person_detection"
+        ],
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "detection",
+                "test": 40670,
+                "train": 118287,
+                "val": 5000,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "person_keypoints",
+                "test": "",
+                "train": 118287,
+                "val": 5000,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "semantic_segmentation",
+                "test": "",
+                "train": 40000,
+                "val": 5000,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "instance_segmentation",
+                "test": "",
+                "train": 118287,
+                "val": 5000,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "densepose",
+                "test": 5323,
+                "train": 26437,
+                "val": 1508,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "person_detection",
+                "test": "",
+                "train": 64115,
+                "val": 2693,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "MSCOCO2017",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 2,
+        "size": "6.9G",
+        "group_server_index": 7,
+        "group_index": 0,
+        "group_name": "VOC_PASCAL",
+        "year": 2017,
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "group_server_len": 28,
+        "details": [
+            {
+                "annotations_format": "txt",
+                "task": "classification",
+                "test": 4952,
+                "train": 2501,
+                "val": 2510,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "detection",
+                "test": 4952,
+                "train": 2501,
+                "val": 2510,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "png",
+                "task": "segmentation",
+                "test": 4952,
+                "train": 2501,
+                "val": 2510,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "VOC2007",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 2,
+        "size": "6.9G",
+        "group_server_index": 8,
+        "group_index": 1,
+        "group_name": "VOC_PASCAL",
+        "year": 2017,
+        "institution": "University of Oxford, Microsoft Research Cambridge, University of Illinois at Urbana-Champaign",
+        "task": [
+            "classification",
+            "detection",
+            "segmentation"
+        ],
+        "group_server_len": 28,
+        "details": [
+            {
+                "annotations_format": "txt",
+                "task": "classification",
+                "test": 10991,
+                "train": 5717,
+                "val": 5823,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "json",
+                "task": "detection",
+                "test": 10991,
+                "train": 5717,
+                "val": 5823,
+                "data_format": "image"
+            },
+            {
+                "annotations_format": "png",
+                "task": "detection",
+                "test": 10991,
+                "train": 5717,
+                "val": 5823,
+                "data_format": "image"
+            }
+        ],
+        "class": "A",
+        "name": "VOC2012",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://sysu-hcp.net/lip/overview.php",
+        "note": "None",
+        "address": "In each intranet server",
+        "group_len": 1,
+        "size": "2.9G",
+        "group_server_index": 9,
+        "group_index": 0,
+        "group_name": "CIHP",
+        "year": "2018",
+        "institution": "Sun Yat-sen University",
+        "task": "human parsing",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "Single Person",
+                "test": 10000,
+                "train": 30462,
+                "val": 10000,
+                "data_format": "image/video"
+            },
+            {
+                "annotations_format": "json",
+                "task": "Multi_Person",
+                "test": 5000,
+                "train": 28280,
+                "val": 5000,
+                "data_format": "image/video"
+            },
+            {
+                "annotations_format": "json",
+                "task": "Video Multi-Person Human Parsing",
+                "test": 50,
+                "train": 304,
+                "val": 50,
+                "data_format": "image/video"
+            },
+            {
+                "annotations_format": "json",
+                "task": "Image-based Multi-pose Virtual Try On:",
+                "test": 10544,
+                "train": 52236,
+                "val": "",
+                "data_format": "image/video"
+            }
+        ],
+        "class": "A",
+        "name": "CIHP",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.109",
+            "192.168.88.191",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "url": "http://www.crowdhuman.org",
+        "note": "None",
+        "address": "192.168.88.20、192.168.88.60、192.168.88.40",
+        "group_len": 1,
+        "size": "21G",
+        "group_server_index": 10,
+        "group_index": 0,
+        "group_name": "CrowdHuman",
+        "year": "2018",
+        "institution": "MEGVII",
+        "task": "detection",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "detection",
+                "test": 5000,
+                "train": 15000,
+                "val": 4370,
+                "data_format": "image"
+            }
+        ],
+        "class": "B",
+        "name": "CrowdHuman",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40"
+        ]
+    },
+    {
+        "url": "https://www.pkuml.org/resources/pku-vehicleid.html",
+        "note": "None",
+        "address": "192.168.88.20、192.168.88.40、192.168.88.60",
+        "group_len": 1,
+        "size": "7.9G",
+        "group_server_index": 11,
+        "group_index": 0,
+        "group_name": "vehicleid",
+        "year": "2016",
+        "institution": "Peking University",
+        "task": "vehicle Re-ID",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "txt",
+                "task": "vehicle Re-ID",
+                "test": "",
+                "train": 221763,
+                "val": "",
+                "data_format": "image"
+            }
+        ],
+        "class": "B",
+        "name": "vehicleid",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "url": "None",
+        "note": "None",
+        "address": "192.168.88.60",
+        "group_len": 1,
+        "size": "4.7G",
+        "group_server_index": 12,
+        "group_index": 0,
+        "group_name": "Priv_shanxitraffic",
+        "year": "None",
+        "institution": "priv",
+        "task": "detection",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "xml",
+                "task": "detection",
+                "test": 2159,
+                "train": 11639,
+                "val": 13798,
+                "data_format": "image"
+            }
+        ],
+        "class": "C",
+        "name": "Priv_shanxitraffic",
+        "group_server_name": [
+            "192.168.88.60"
+        ]
+    },
+    {
+        "url": "None",
+        "note": "None",
+        "address": "192.168.88.40、192.168.88.60",
+        "group_len": 1,
+        "size": "8.5G",
+        "group_server_index": 13,
+        "group_index": 0,
+        "group_name": "Priv_shanxivehicle",
+        "year": "None",
+        "institution": "priv",
+        "task": "detection",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "json",
+                "task": "detection",
+                "test": "",
+                "train": 3989,
+                "val": 797,
+                "data_format": "image"
+            }
+        ],
+        "class": "C",
+        "name": "Priv_shanxivehicle",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221"
+        ]
+    },
+    {
+        "url": "None",
+        "note": "None",
+        "address": "192.168.88.20、192.168.88.40、192.168.88.60、192.168.88.123",
+        "group_len": 1,
+        "size": "3.8G",
+        "group_server_index": 14,
+        "group_index": 0,
+        "group_name": "Priv_personpart",
+        "year": "None",
+        "institution": "priv",
+        "task": "detection",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "xml",
+                "task": "detection",
+                "test": "",
+                "train": 12000,
+                "val": 2962,
+                "data_format": "image"
+            }
+        ],
+        "class": "C",
+        "name": "Priv_personpart",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20",
+            "192.168.88.123"
+        ]
+    },
+    {
+        "url": "None",
+        "note": "None",
+        "address": "192.168.88.40、192.168.88.60",
+        "group_len": 1,
+        "size": "0.6G",
+        "group_server_index": 15,
+        "group_index": 0,
+        "group_name": "Priv_ship",
+        "year": "None",
+        "institution": "priv",
+        "task": "detection",
+        "group_server_len": 14,
+        "details": [
+            {
+                "annotations_format": "xml",
+                "task": "detection",
+                "test": 880,
+                "train": 3146,
+                "val": "",
+                "data_format": "image"
+            }
+        ],
+        "class": "C",
+        "name": "Priv_ship",
+        "group_server_name": [
+            "192.168.88.60",
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.20",
+        "group_index": 0,
+        "group_server_index": 10,
+        "institution": "Chinese Academy of Sciences",
+        "group_name": "CASIA-WebFace",
+        "url": "http://www.cbsr.ia.ac.cn/english/CASIA-WebFace-Database.html",
+        "size": "4.5G",
+        "group_len": 1,
+        "task": "Face recognition",
+        "year": "2014",
+        "details": [
+            {
+                "data_format": "None",
+                "task": "Face recognition",
+                "test": "",
+                "annotations_format": "json",
+                "train": "",
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "CASIA-WebFace",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.109、192.168.88.123、192.168.88.97、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 11,
+        "institution": "NIH Research Institute",
+        "group_name": "chestxray",
+        "url": "https://www.nih.gov/news-events/news-releases/nih-clinical-center-provides-one-largest-publicly-available-chest-x-ray-datasets-scientific-community",
+        "size": "43G",
+        "group_len": 1,
+        "task": "classification",
+        "year": "2017",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "classification",
+                "test": 5000,
+                "annotations_format": "json",
+                "train": 10000,
+                "val": 5000
+            }
+        ],
+        "group_server_len": 27,
+        "name": "chestxray",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.123"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.20、192.168.88.221、192.168.88.60",
+        "group_index": 0,
+        "group_server_index": 13,
+        "institution": "Visual Geometry Group, University of Oxford",
+        "group_name": "VGG_face2",
+        "url": "http://www.robots.ox.ac.uk/~vgg/data/vgg_face2/",
+        "size": "46G",
+        "group_len": 1,
+        "task": "Face recognition",
+        "year": "2018",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "Face recognition",
+                "test": 7697433,
+                "annotations_format": "filename",
+                "train": 731466,
+                "val": 3307232
+            }
+        ],
+        "group_server_len": 27,
+        "name": "VGG_face2",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.20、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 15,
+        "institution": "Innovation Workshop, Sogou, Meituan Reviews, Meitu",
+        "group_name": "AI_Challenger",
+        "url": "https://challenger.ai",
+        "size": "19G",
+        "group_len": 1,
+        "task": "classification",
+        "year": "2018",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "classification",
+                "test": 200000,
+                "annotations_format": "json",
+                "train": 500000,
+                "val": 200000
+            }
+        ],
+        "group_server_len": 27,
+        "name": "AI_Challenger",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 16,
+        "institution": "The Hong Kong Polytechnic University and Alibaba",
+        "group_name": "FashionAI",
+        "url": "http://fashionai.alibaba.com/datasets/",
+        "size": "3.3G",
+        "group_len": 1,
+        "task": "classification",
+        "year": "2018",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "classification",
+                "test": "",
+                "annotations_format": "json",
+                "train": "",
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "FashionAI",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.109、192.168.88.123、192.168.88.97、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 17,
+        "institution": "NIH Research Institute",
+        "group_name": "ChestXRay2017",
+        "url": "https://nihcc.app.box.com/v/ChestXray-NIHCC",
+        "size": "1.6G",
+        "group_len": 1,
+        "task": "classification",
+        "year": "2017",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "classification",
+                "test": 420,
+                "annotations_format": "json",
+                "train": 98637,
+                "val": 6531
+            }
+        ],
+        "group_server_len": 27,
+        "name": "ChestXRay2017",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.123",
+            "192.168.88.197"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.20、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 18,
+        "institution": "University of Nottingham",
+        "group_name": "LS3D-W",
+        "url": "https://www.adrianbulat.com/face-alignment",
+        "size": "0.35G",
+        "group_len": 1,
+        "task": "3D face alignment",
+        "year": "2017",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "3D face alignment",
+                "test": "",
+                "annotations_format": "t7",
+                "train": 23000,
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "LS3D-W",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 19,
+        "institution": "Karlsruhe Institute of Technology and Toyota American Institute of Technology",
+        "group_name": "kitti",
+        "url": "http://www.cvlibs.net/datasets/kitti/eval_road.php",
+        "size": "40G",
+        "group_len": 1,
+        "task": "detection",
+        "year": "2012",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "detection",
+                "test": 5000,
+                "annotations_format": "json",
+                "train": 10000,
+                "val": 5000
+            }
+        ],
+        "group_server_len": 27,
+        "name": "kitti",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "B",
+        "address": "192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 20,
+        "institution": "The Chinese University of Hong Kong",
+        "group_name": "psdb",
+        "url": "http://www.ee.cuhk.edu.hk/~xgwang/PS/dataset.html",
+        "size": "1.2G",
+        "group_len": 1,
+        "task": "Persen Re-ID",
+        "year": "2016",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "Persen Re-ID",
+                "test": "6978",
+                "annotations_format": "mat",
+                "train": "11206",
+                "val": "None"
+            }
+        ],
+        "group_server_len": 27,
+        "name": "psdb",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "C",
+        "address": "192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 23,
+        "institution": "priv",
+        "group_name": "Priv_vehicle",
+        "url": "None",
+        "size": "4.2G",
+        "group_len": 1,
+        "task": "detection",
+        "year": "None",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "detection",
+                "test": "",
+                "annotations_format": "xml",
+                "train": 23736,
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "Priv_vehicle",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "C",
+        "address": "192.168.88.20、192.168.88.40、192.168.88.221",
+        "group_index": 0,
+        "group_server_index": 24,
+        "institution": "priv",
+        "group_name": "Priv_cellphone",
+        "url": "None",
+        "size": "2G",
+        "group_len": 1,
+        "task": "detection",
+        "year": "None",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "detection",
+                "test": "",
+                "annotations_format": "xml",
+                "train": 6500,
+                "val": 842
+            }
+        ],
+        "group_server_len": 27,
+        "name": "Priv_cellphone",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.221",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "C",
+        "address": "192.168.88.20、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 25,
+        "institution": "priv",
+        "group_name": "Priv_Crack",
+        "url": "None",
+        "size": "68G",
+        "group_len": 1,
+        "task": "segmentation",
+        "year": "None",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "segmentation",
+                "test": "",
+                "annotations_format": "png",
+                "train": 7641,
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "Priv_Crack",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "C",
+        "address": "192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 26,
+        "institution": "priv",
+        "group_name": "Priv_personparsing",
+        "url": "None",
+        "size": "18.9G",
+        "group_len": 1,
+        "task": "parsing",
+        "year": "None",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "parsing",
+                "test": 5000,
+                "annotations_format": "png",
+                "train": 25790,
+                "val": 5000
+            }
+        ],
+        "group_server_len": 27,
+        "name": "Priv_personparsing",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40"
+        ]
+    },
+    {
+        "class": "C",
+        "address": "192.168.88.20、192.168.88.40",
+        "group_index": 0,
+        "group_server_index": 27,
+        "institution": "priv",
+        "group_name": "Priv_person",
+        "url": "None",
+        "size": "1.7G",
+        "group_len": 1,
+        "task": "detection",
+        "year": "None",
+        "details": [
+            {
+                "data_format": "image",
+                "task": "detection",
+                "test": "",
+                "annotations_format": "xml",
+                "train": 336505,
+                "val": ""
+            }
+        ],
+        "group_server_len": 27,
+        "name": "Priv_person",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.40",
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_index": 0,
+        "year": "2004",
+        "group_server_len": 14,
+        "group_name": "KTH",
+        "url": "http://www.nada.kth.se/cvap/actions/",
+        "address": "192.168.88.221",
+        "size": "1.2G",
+        "class": "B",
+        "group_server_index": 10,
+        "name": "KTH",
+        "group_len": 1,
+        "task": "Recognition of human actions",
+        "note": "None",
+        "details": [
+            {
+                "annotations_format": "filename",
+                "train": "8 persons",
+                "test": "9 persons",
+                "task": "Recognition of human actions",
+                "val": "8 persons",
+                "data_format": "sequence"
+            }
+        ],
+        "institution": "KTH Royal Institute of Technology",
+        "group_server_name": [
+            "192.168.88.221"
+        ]
+    },
+    {
+        "group_index": 0,
+        "year": "2017",
+        "group_server_len": 14,
+        "group_name": "DOTA",
+        "url": "http://captain.whu.edu.cn/dotaweb/",
+        "address": "192.168.88.60、192.168.88.123、192.168.88.221",
+        "size": "172G",
+        "class": "B",
+        "group_server_index": 11,
+        "name": "DOTA",
+        "group_len": 1,
+        "task": "detection",
+        "note": "None",
+        "details": [
+            {
+                "annotations_format": "json",
+                "train": 14670,
+                "test": 5000,
+                "task": "detection",
+                "val": 4000,
+                "data_format": "image"
+            }
+        ],
+        "institution": "Research Group of Computational Vision and Photography, Wuhan University",
+        "group_server_name": [
+            "192.168.88.221",
+            "192.168.88.123"
+        ]
+    },
+    {
+        "group_len": 1,
+        "address": "192.168.88.20",
+        "group_server_len": 18,
+        "institution": "Beijing University of Posts and Telecommunications, Microsoft Research ",
+        "name": "VeRi",
+        "task": "vehicle Re-ID",
+        "group_name": "VeRi",
+        "group_server_index": 9,
+        "class": "B",
+        "note": "None",
+        "group_index": 0,
+        "url": "https://github.com/VehicleReId/VeRidataset",
+        "details": [
+            {
+                "annotations_format": "txt",
+                "val": "",
+                "data_format": "image",
+                "test": 11579,
+                "task": "vehicle Re-ID",
+                "train": 37778
+            }
+        ],
+        "year": "2016",
+        "size": "2.1G",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "group_len": 1,
+        "address": "192.168.88.20",
+        "group_server_len": 18,
+        "institution": "priv",
+        "name": "Priv_hand",
+        "task": "detection",
+        "group_name": "Priv_hand",
+        "group_server_index": 14,
+        "class": "C",
+        "note": "None",
+        "group_index": 0,
+        "url": "None",
+        "details": [
+            {
+                "annotations_format": "xml",
+                "val": 738,
+                "data_format": "image",
+                "test": 821,
+                "task": "detection",
+                "train": 4069
+            }
+        ],
+        "year": "None",
+        "size": "0.26G",
+        "group_server_name": [
+            "192.168.88.20"
+        ]
+    },
+    {
+        "class": "B",
+        "name": "WiderPerson",
+        "institution": "Institute of Automation, Chinese Academic of Sciences",
+        "group_server_len": 13,
+        "size": "0.97G",
+        "group_server_index": 13,
+        "address": "192.168.88.123",
+        "group_name": "WiderPerson",
+        "group_index": 0,
+        "url": "http://www.cbsr.ia.ac.cn/users/sfzhang/WiderPerson/",
+        "group_len": 1,
+        "task": "Pedestrian Detection",
+        "details": [
+            {
+                "data_format": "image",
+                "annotations_format": "txt",
+                "test": 4382,
+                "val": 1000,
+                "task": "Pedestrian Detection",
+                "train": 8000
+            }
+        ],
+        "year": "2019",
+        "note": "None",
+        "group_server_name": [
+            "192.168.88.123"
+        ]
+    },
+    {
+        "group_name": "CelebA",
+        "address": "In each intranet server",
+        "name": "CelebA",
+        "size": "20G",
+        "group_index": 0,
+        "details": [
+            {
+                "train": 162770,
+                "test": 19961,
+                "annotations_format": "json",
+                "val": 19866,
+                "task": "Face recognition",
+                "data_format": "image"
+            }
+        ],
+        "url": "http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html",
+        "group_len": 1,
+        "class": "A",
+        "task": "Face recognition",
+        "note": "None",
+        "group_server_index": 2,
+        "institution": "Multimedia Laboratory, The Chinese University of Hong Kong",
+        "group_server_len": 10,
+        "year": "2015",
+        "group_server_name": [
+            "192.168.88.197"
+        ]
+    }
+]

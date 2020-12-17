@@ -6,21 +6,12 @@ dir_path = os.getcwd()
 config_path = dir_path+'/config/config.txt'
 print(config_path)
 
-print(0)
 from utils.utils import *
 
-
-print(1)
 conn = MongoClient('127.0.0.1', 27017)
-print(2)
 db = conn.monitor_copy
-print(3)
 moni_data = db.moni_data
-print(4)
 moni_script = db.moni_script
-print(5)
-
-print(1)
 
 # logging初始化工作
 logging.basicConfig()
@@ -51,6 +42,7 @@ def run(moni_time):
             host = dict['host']
             user = dict['user']
             pwd = dict['pwd']
+            remote_file = "/home/{}/Monitor_script/monitor_perf_cc.py".format(user)
             print('------------开始认证......-----------')
             try:
                 # client = paramiko.SSHClient()
@@ -76,12 +68,12 @@ def run(moni_time):
                             if pid_ss:
                                 pid_ss['timestamp'] = timestamp
                                 moni_script.insert(pid_ss)
-                # print('result----{}'.format(result))
+            
                 # 服务器开启
                 client.close()
             except Exception as e:
                 # 服务器禁用或者账号密码错误
-                # print('------------认证失败!.....-----------')
+                print('------------认证失败!.....-----------')
                 print(e)
                 myapp.info('error_ip:{}'.format(host))
                 myapp.info(e)

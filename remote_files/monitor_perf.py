@@ -14,7 +14,8 @@ def get_netcard():
     info = psutil.net_if_addrs()
     for k, v in info.items():
         for item in v:
-            if item[0] == 2 and not item[1] == '127.0.0.1' and '192.168.88.' in item[1]:
+            # if item[0] == 2 and not item[1] == '127.0.0.1' and '192.168.88.' in item[1]:
+            if item[0] == 2 and not item[1] == '127.0.0.1':
                 netcard_info.append((k, item[1]))
     return netcard_info
 
@@ -32,23 +33,24 @@ def ndivi_pid(gpu_num):
         pid_dic = {}
         res = i.split()
         # print(res)
-        if res[2].isdigit():
-            if int(res[1]) == gpu_num and res[3]=='C':
-                pid_dic['gpu_use'] = int(res[1])
-                pid_dic['gpu_pid'] = res[2]
-                pid_dic['gpu_mem'] = int(res[5].split('M')[0])
-                # cmd = 'ps aux|grep -v grep | grep {}'.format(res[2])
-                cmd = 'ps -o ruser=userForLongName -e -o pid,%cpu,%mem,vsz,rss,tty,stat,start,time,cmd | grep -v grep | grep -w {}'.format(
-                    res[2])
-                result_str = popen(cmd).read()
-                asd = re.sub(' +', ' ', result_str)
-                ress = asd.split(' ')
-                # print(ress)
-                pid_dic['user'] = ress[0]
-                pid_dic['config'] = ress[-1].split('\n')[0]
-                pid_dic['duration'] = ress[9]
-                pid_dic['start_time'] = ress[8]
-                pid_list.append(pid_dic)
+        if len(res) > 3:
+            if res[2].isdigit():
+                if int(res[1]) == gpu_num and res[3]=='C':
+                    pid_dic['gpu_use'] = int(res[1])
+                    pid_dic['gpu_pid'] = res[2]
+                    pid_dic['gpu_mem'] = int(res[5].split('M')[0])
+                    # cmd = 'ps aux|grep -v grep | grep {}'.format(res[2])
+                    cmd = 'ps -o ruser=userForLongName -e -o pid,%cpu,%mem,vsz,rss,tty,stat,start,time,cmd | grep -v grep | grep -w {}'.format(
+                        res[2])
+                    result_str = popen(cmd).read()
+                    asd = re.sub(' +', ' ', result_str)
+                    ress = asd.split(' ')
+                    # print(ress)
+                    pid_dic['user'] = ress[0]
+                    pid_dic['config'] = ress[-1].split('\n')[0]
+                    pid_dic['duration'] = ress[9]
+                    pid_dic['start_time'] = ress[8]
+                    pid_list.append(pid_dic)
         # cmd = 'ps -ef | grep {} | grep -v grep'.format(res[2])
 
     return pid_list

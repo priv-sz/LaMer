@@ -18,8 +18,8 @@ config_path = dir_path+'/config/config.txt'
 monit_path = dir_path + '/monitor_server.py'
 local_file = dir_path + '/remote_files/monitor_perf.py'
 file_local_file = dir_path + '/remote_files/requirements.txt'
-remote_file = "/home/user/Monitor_script/monitor_perf_cc.py"
-remote_re_file = "/home/user/Monitor_script/requirement.txt"
+remote_file = "/home/user/Monitor_script/monitor_perf_cc.py" # remote file 都替换成登录用户的路径
+remote_re_file = "/home/user/Monitor_script/requirement.txt" #
 remote_dir = "/home/user/Monitor_script/"
 maxBytes = 102400
 backupCount = 10
@@ -29,6 +29,9 @@ client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
 
 def edi_data(host,user,pwd,time_,moni_data,moni_script):
+    remote_file = "/home/{}/Monitor_script/monitor_perf_cc.py".format(user)
+    remote_re_file = "/home/{}/Monitor_script/requirement.txt".format(user)
+    remote_dir = "/home/{}/Monitor_script/".format(user)
     try:
         timestamp = int(time.time())
         client = paramiko.SSHClient()
@@ -59,6 +62,7 @@ def edi_data(host,user,pwd,time_,moni_data,moni_script):
         print(e)
         return 0
 
+
 def add_data(host,user,pwd,time_,moni_data,moni_script):
     global client
     try:
@@ -72,6 +76,10 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
         #     pwd = dict['pwd']
         #     if ip == host:
 
+        remote_file = "/home/{}/Monitor_script/monitor_perf_cc.py".format(user)
+        remote_re_file = "/home/{}/Monitor_script/requirement.txt".format(user)
+        remote_dir = "/home/{}/Monitor_script/".format(user)
+
         timestamp = int(time.time())
         client.connect(host, 22, username=user, password=pwd, timeout=3)
         ssh = paramiko.Transport((host, 22))
@@ -81,7 +89,7 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
             print("exist")
         else:
             print("not exist")
-            cmd = 'mkdir {}'.format(remote_dir)
+            cmd = 'mkdir -p {}'.format(remote_dir)
             client.exec_command(cmd)
         ssh.connect(username=user, password=pwd)
         sftp = paramiko.SFTPClient.from_transport(ssh)
@@ -89,7 +97,11 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
             sftp.put(local_file, remote_file)
             sftp.put(file_local_file, remote_re_file)
         except Exception as e:
+            print("********")
             print(e)
+            print(local_file)
+            print(file_local_file)
+            print("********")
             # sftp.put(local_file, remote_file)
             # sftp.put(remote_re_file, remote_re_file)
             print("从本地： %s 上传到： %s" % (local_file, remote_file))
@@ -98,7 +110,7 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
 
         client.connect(host, 22, username=user, password=pwd, timeout=3)
         _, stdout1, stderr1 = client.exec_command(
-            'echo priv123 | sudo -S pip3 install -r {} -i https://pypi.tuna.tsinghua.edu.cn/simple'.format(remote_re_file))
+            'echo {} | sudo -S pip3 install -r {} -i https://pypi.tuna.tsinghua.edu.cn/simple'.format(pwd, remote_re_file))
         stdout1.read().decode('utf-8')
 
         cmd = 'python3 {}'.format(remote_file)
@@ -120,8 +132,8 @@ def add_data(host,user,pwd,time_,moni_data,moni_script):
                     if pid_ss:
                         pid_ss['timestamp'] = timestamp
                         moni_script.insert(pid_ss)
-                        print('$$$$$$')
-                        print(pid_ss)
+                        # print('$$$$$$')
+                        # print(pid_ss)
         if list_arr:
             list_arr[0].pop('_id')
         return list_arr
@@ -149,7 +161,7 @@ def teee():
             print("exist")
         else:
             print("not exist")
-            cmd = 'mkdir {}'.format(remote_dir)
+            cmd = 'mkdir -p {}'.format(remote_dir)
             client.exec_command(cmd)
         ssh = paramiko.Transport((host, 22))
         ssh.connect(username=user, password=pwd)

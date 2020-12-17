@@ -4,7 +4,7 @@ import uuid
 import base64
 from copy import deepcopy
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, make_response
 from flask import request
 # from model.Model import *
 from flask_cors import *
@@ -34,13 +34,15 @@ app.config['SECRET_KEY'] = 'wiwide_lma'
 # mongoengine.connect(db='monitor_copy', host='192.168.88.191:27017', maxPoolSize=200, connect=False)
 app.config['MONGODB_SETTINGS'] = {
 	'db': 'monitor_copy',
-	'host': '192.168.88.191',
+	# 'host': '192.168.88.191',
+    'host': '127.0.0.1',
 	'port': 27017,
     'connect':False
 }
-conn = MongoClient('192.168.88.191', 27017)
+# conn = MongoClient('192.168.88.191', 27017)
+conn = MongoClient('127.0.0.1', 27017)
 
-# mongoengine.connect(db='monitor_copy', host='140.143.137.79:27108')
+# mongoengine.connect(db='monitor_copy', host='140.143.137.79:27108', maxPoolSize=200, connect=False)
 # app.config['MONGODB_SETTINGS'] = {
 # 	'db': 'monitor_copy',
 # 	'host': '140.143.137.79',
@@ -48,7 +50,7 @@ conn = MongoClient('192.168.88.191', 27017)
 #     'connect':False
 # }
 # conn = MongoClient('140.143.137.79', 27108)
-
+#
 db = conn.monitor_copy
 moni_data = db.moni_data
 moni_script = db.moni_script
@@ -71,6 +73,8 @@ DOWN_LOAD = DATA_FOLDER + 'logdir/'
 HEADPIC_FOLDER = DATA_FOLDER + 'headpic/'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'  # 保存文件位置
+
+time_interval = 0.5
 
 with app.app_context():
     db_eng.init_app(app)
@@ -142,8 +146,28 @@ def tem_script(res):
 #     return dics
 
 
+@app.route('/query_userInfo', methods=['POST'])
+# TODO 这里有时会丢失 cookie , 待 debug
+def query_userInfo():
+    try:
+        name = request.json.get('sessionId')
+        person = Person.objects(name=name)
+        if len(person):
+            dics = m2d_exclude(person[0])
+            return jsonify(error_code=0, status=200, login='success', err_msg=dics)
+        else:
+            return jsonify(error_code=1, status=400, login='fail', err_msg='cookie 失效')
+
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
 # 平台登录
-@app.route('/login', methods=['POST'])
+@app.route('/user_login', methods=['POST'])
 def login():
     data = request.json
     if data:
@@ -155,14 +179,15 @@ def login():
                 dics = {}
                 dics['name'] = person[0].name
                 dics['password'] = person[0].password
-                return jsonify(error_code=0, login='success', err_msg=dics)
+                dics['auth'] = person[0].auth
+                return jsonify(error_code=0, status=200, login='success', err_msg=dics)
             else:
-                return jsonify(error_code=1, login='fail')
+                return jsonify(error_code=1, status=400, login='fail', err_msg='账户或密码错误')
         except Exception as e:
             print(e)
-            return jsonify(error_code=1, login='fail', err_msg=e)
+            return jsonify(error_code=1, status=400, login='fail', err_msg=e)
     else:
-        return jsonify(error_code=1, err_msg='json error')
+        return jsonify(error_code=1, status=400, err_msg='json error')
 
 
 # 平台注册信息
@@ -971,6 +996,225 @@ def one_day_cc():
 '''
 ls add
 '''
+@app.route('/query_each_server_hours', methods=['POST'])
+def query_each_server_hours():
+    try:
+        timestamp_gte, timestamp_lte = get_week()
+        data_query = Data._get_collection().aggregate([
+            {"$match": {"timestamp": {"$lte": timestamp_lte, "$gte": timestamp_gte}}},
+            {"$sort": {"timestamp": -1}},
+            {'$unwind': '$gpu_info'},
+            {"$group": {"_id": {
+                'net_ip': '$net_ip',
+                'timestamp': '$timestamp',
+            },
+                "gpu": {"$avg": "$gpu_info.usedMemry"},
+                "temp": {"$avg": "$gpu_info.temp"},
+                "percent": {"$avg": "$gpu_info.percent"},
+                'net_ip': {"$first": "$net_ip"},
+                'timestamp': {'$first': '$timestamp'}
+                # 'timestamp': {'$push': '$timestamp'}
+            }},
+            {"$match": {"gpu": {"$gte": 10000}}},
+            {"$group": {"_id": {
+                'net_ip': '$net_ip',
+            },
+                "gpu": {"$avg": "$gpu"},
+                "temp": {"$avg": "$temp"},
+                "percent": {"$avg": "$percent"},
+                'net_ip': {"$first": "$net_ip"},
+                'timestamp': {'$push': '$timestamp'}
+            }},
+        ]
+        )
+
+        with open(config_path, 'r') as f:
+            conf = f.readlines()
+        server_confi = []
+        server_confi_dic = {}
+        for dics in conf:
+            dicc = eval(dics)
+            server_confi.append(dicc['host'])
+            server_confi_dic[dicc['host']] = dicc['name']
+
+        aggre_obj = list(data_query)
+
+        def total_hours(item):
+            item['total_hours'] = len(item['timestamp']) * time_interval
+            return item
+
+        result = list(map(total_hours, aggre_obj))
+        ip_arr = []
+        for item in result:
+            item = float2int(item)
+            if item['net_ip'] in server_confi_dic:
+                item['name'] = server_confi_dic[item['net_ip']]
+            else:
+                item['name'] = ''
+            item.pop('_id')
+            item['timestamp'] = max(item['timestamp'])
+            ip_arr.append(item['net_ip'])
+
+        list_dif = list(set(server_confi).difference(set(ip_arr)))
+
+        for net_ip in list_dif:
+            dic = dict(gpu=0, temp=0, percent=0, net_ip=net_ip, total_hours=0, name=server_confi_dic[net_ip])
+            result.append(dic)
+        # 正序
+        students = Student.objects().all()
+        students_all = list(map(lambda x: m2d_exclude(x), students))
+
+        result_dic = {}
+        for item in result:
+            result_dic[item['net_ip']] = item
+
+        for student in students_all:
+            student['total_hours'] = 0
+            for server_item in student['server']:
+                if server_item['host'] in result_dic:
+                    student['total_hours'] += result_dic[server_item['host']]['total_hours']
+
+        return jsonify(error_code=0, status=200, err_msg=dict(servers=result, students=students_all))
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
+@app.route('/free_server', methods=['POST'])
+def now_free_server():
+    try:
+        timestamp_lte = int(time.time())
+        timestamp_gte = timestamp_lte - 40 * 60
+
+        data_query = Data._get_collection().aggregate([
+            {"$match": {"timestamp": {"$lte": timestamp_lte, "$gte": timestamp_gte}}},
+            {"$sort": {"timestamp": -1}},
+            {'$unwind': '$gpu_info'},
+            {"$group": {"_id": {
+                'net_ip': '$net_ip',
+                'fan': '$gpu_info.fan',
+            },
+                "gpu": {"$first": "$gpu_info.usedMemry"},
+                "temp": {"$avg": "$gpu_info.temp"},
+                "percent": {"$avg": "$gpu_info.percent"},
+                'net_ip': {"$first": "$net_ip"},
+                'timestamp': {'$first': '$timestamp'},
+                'fan': {'$first': '$gpu_info.fan'}
+            }},
+            {"$match": {"gpu": {"$lte": 10*1024*1024}}},
+        ]
+        )
+
+        with open(config_path, 'r') as f:
+            conf = f.readlines()
+        server_confi = {}
+        for dics in conf:
+            dicc = eval(dics)
+            server_confi[dicc['host']] = dicc['name']
+
+        aggre_obj = list(data_query)
+        for item in aggre_obj:
+            item = float2int(item)
+            item['name'] = server_confi[item['net_ip']]
+            item.pop('_id')
+
+        result_dic = {}
+        for index, obj in enumerate(aggre_obj):
+            if obj['net_ip'] not in result_dic:
+                obj_tmp = deepcopy(obj)
+                obj_tmp['fan'] = []
+                obj_tmp['fan'].append(obj['fan'])
+                result_dic[obj['net_ip']] = obj_tmp
+            else:
+                result_dic[obj['net_ip']]['fan'].append(obj['fan'])
+        result = []
+
+        for key, value in result_dic.items():
+            value['fan'].sort()
+            result.append(value)
+        return jsonify(error_code=0, status=200, err_msg=result)
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
+@app.route('/query_week_server_hours', methods=['POST'])
+def query_week_server_hours():
+    try:
+        now_time = int(time.time())
+        timeArray = time.localtime(now_time)
+        otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+        now_date = datetime.datetime.strptime(otherStyleTime, "%Y-%m-%d %H:%M:%S")
+        loop_count = now_date.hour
+        week_now = now_date.weekday() + 1
+
+        timestamp_gte, timestamp_lte = get_week()
+        data_query_week = Data._get_collection().aggregate([
+            {"$match": {"timestamp": {"$lte": timestamp_lte, "$gte": timestamp_gte}}},
+            {"$sort": {"timestamp": -1}},
+            {'$unwind': '$gpu_info'},
+            {"$group": {"_id": {
+                'net_ip': '$net_ip',
+                'timestamp': '$timestamp',
+            },
+                "gpu": {"$sum": "$gpu_info.usedMemry"},
+                "temp": {"$avg": "$gpu_info.temp"},
+                "percent": {"$avg": "$gpu_info.percent"},
+                'net_ip': {"$first": "$net_ip"},
+                'timestamp': {'$first': '$timestamp'}
+            }},
+            {"$match": {"gpu": {"$gte": 10*1024*1024}}},
+        ]
+        )
+
+        aggre_obj_week = list(data_query_week)
+        total_hours_week = len(aggre_obj_week) * time_interval
+        # hours_percent_week = total_hours_week / (24 * week_now * 10)
+        hours_percent_week = total_hours_week / (24 * 7 * 10)  # 小时 * 天数 * 服务器数量  , 原来的天数是 当前天数, 现统一改为一周总天数
+
+        timestamp_gte, timestamp_lte = get_today_time()
+
+        data_query_day = Data._get_collection().aggregate([
+            {"$match": {"timestamp": {"$lte": timestamp_lte, "$gte": timestamp_gte}}},
+            {"$sort": {"timestamp": -1}},
+            {'$unwind': '$gpu_info'},
+            {"$group": {"_id": {
+                'net_ip': '$net_ip',
+                'timestamp': '$timestamp',
+            },
+                "gpu": {"$sum": "$gpu_info.usedMemry"},
+                "temp": {"$avg": "$gpu_info.temp"},
+                "percent": {"$avg": "$gpu_info.percent"},
+                'net_ip': {"$first": "$net_ip"},
+                'timestamp': {'$first': '$timestamp'}
+            }},
+            {"$match": {"gpu": {"$gte": 10 * 1024 * 1024}}},
+        ]
+        )
+
+        aggre_obj_day = list(data_query_day)
+        total_hours_day = len(aggre_obj_day) * time_interval
+        hours_percent_day = total_hours_day / (24 * 10)
+
+        return jsonify(error_code=0, status=200, err_msg=dict(total_hours_week=total_hours_week,
+                                                              hours_percent_week=hours_percent_week,
+                                                              total_hours_day=total_hours_day,
+                                                              hours_percent_day=hours_percent_day
+                                                              ))
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
+
+
 def section_hours_qurty(func):
     now_time = int(time.time())
     timeArray = time.localtime(now_time)
@@ -2404,8 +2648,16 @@ def tess():
 
 @app.route('/upload_tmp', methods=['POST'])
 def upload_tmp():
-    print("22")
-    return '200'
+    try:
+        print("22")
+        f = request.files['file']
+        return '200'
+    except Exception as e:
+        print('***********')
+        print(e)
+        traceback.print_exc()
+        print('***********')
+        return jsonify(error_code=1, status=400, err_msg=e)
 
 
 # @app.route('/test_mo',methods=['POST'])
@@ -2415,4 +2667,4 @@ def upload_tmp():
 #     return '200'
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5010, debug=True)
+    app.run(host='0.0.0.0', port=3000, debug=True)
