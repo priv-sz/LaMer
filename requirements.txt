@@ -2,7 +2,7 @@ mongoengine==0.17.0
 paramiko==2.6.0
 redis==3.0.1
 Flask==1.0.2
-celery==4.2.0
+celery==5.2.2
 pymongo==3.9.0
 Flask_Cors==3.0.7
 nvidia_ml_py3==7.352.0
